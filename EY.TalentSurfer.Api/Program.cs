@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using EY.TalentSurfer.Support.Persistence.Sql;
+using Microsoft.EntityFrameworkCore;
 
 namespace EY.TalentSurfer.Api
 {
@@ -25,7 +26,7 @@ namespace EY.TalentSurfer.Api
                 try
                 {
                     var context = services.GetRequiredService<TalentSurferContext>();
-                    context.Database.EnsureCreated();
+                    context.Database.Migrate();
                 }
                 catch (Exception ex)
                 {

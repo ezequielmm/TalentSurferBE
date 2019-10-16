@@ -21,15 +21,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EY.TalentSurfer.Dto", "EY.T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EY.TalentSurfer.Api.Tests", "EY.TalentSurfer.Api.Tests\EY.TalentSurfer.Api.Tests.csproj", "{B1F95E96-6A97-44CD-9BDF-DD001F11FEFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EY.TalentSurfer.Services.Tests", "EY.TalentSurfer.Services.Tests\EY.TalentSurfer.Services.Tests.csproj", "{D5F14A74-ED55-4B1F-85FE-E63A6AF4E46A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EY.TalentSurfer.Services.Tests", "EY.TalentSurfer.Services.Tests\EY.TalentSurfer.Services.Tests.csproj", "{D5F14A74-ED55-4B1F-85FE-E63A6AF4E46A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EY.TalentSurfer.Support.Tests", "EY.TalentSurfer.Support.Tests\EY.TalentSurfer.Support.Tests.csproj", "{5B610255-86F5-4799-A355-BD4EA4C3DBA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EY.TalentSurfer.Support.Tests", "EY.TalentSurfer.Support.Tests\EY.TalentSurfer.Support.Tests.csproj", "{5B610255-86F5-4799-A355-BD4EA4C3DBA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EY.TalentSurfer.Support.Api.Tests", "EY.TalentSurfer.Support.Api.Tests\EY.TalentSurfer.Support.Api.Tests.csproj", "{65EA978A-D52B-4A2A-9638-E27875B5FADD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EY.TalentSurfer.Support.Api.Tests", "EY.TalentSurfer.Support.Api.Tests\EY.TalentSurfer.Support.Api.Tests.csproj", "{65EA978A-D52B-4A2A-9638-E27875B5FADD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EY.TalentSurfer.Support.Persistence.Tests", "EY.TalentSurfer.Support.Persistence.Tests\EY.TalentSurfer.Support.Persistence.Tests.csproj", "{EE1DC8FE-861A-4EBB-A0EF-A8D9353E87DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EY.TalentSurfer.Support.Persistence.Tests", "EY.TalentSurfer.Support.Persistence.Tests\EY.TalentSurfer.Support.Persistence.Tests.csproj", "{EE1DC8FE-861A-4EBB-A0EF-A8D9353E87DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EY.TalentSurfer.Support.Persistence.Sql.Tests", "EY.TalentSurfer.Support.Persistence.Sql.Tests\EY.TalentSurfer.Support.Persistence.Sql.Tests.csproj", "{D8A100CD-D407-4560-A40F-FD4985D78535}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EY.TalentSurfer.Support.Persistence.Sql.Tests", "EY.TalentSurfer.Support.Persistence.Sql.Tests\EY.TalentSurfer.Support.Persistence.Sql.Tests.csproj", "{D8A100CD-D407-4560-A40F-FD4985D78535}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{8F0434C5-1213-42C1-A598-1DB015502EDD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -209,6 +211,18 @@ Global
 		{D8A100CD-D407-4560-A40F-FD4985D78535}.Release|x64.Build.0 = Release|Any CPU
 		{D8A100CD-D407-4560-A40F-FD4985D78535}.Release|x86.ActiveCfg = Release|Any CPU
 		{D8A100CD-D407-4560-A40F-FD4985D78535}.Release|x86.Build.0 = Release|Any CPU
+		{8F0434C5-1213-42C1-A598-1DB015502EDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F0434C5-1213-42C1-A598-1DB015502EDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F0434C5-1213-42C1-A598-1DB015502EDD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8F0434C5-1213-42C1-A598-1DB015502EDD}.Debug|x64.Build.0 = Debug|Any CPU
+		{8F0434C5-1213-42C1-A598-1DB015502EDD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8F0434C5-1213-42C1-A598-1DB015502EDD}.Debug|x86.Build.0 = Debug|Any CPU
+		{8F0434C5-1213-42C1-A598-1DB015502EDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F0434C5-1213-42C1-A598-1DB015502EDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F0434C5-1213-42C1-A598-1DB015502EDD}.Release|x64.ActiveCfg = Release|Any CPU
+		{8F0434C5-1213-42C1-A598-1DB015502EDD}.Release|x64.Build.0 = Release|Any CPU
+		{8F0434C5-1213-42C1-A598-1DB015502EDD}.Release|x86.ActiveCfg = Release|Any CPU
+		{8F0434C5-1213-42C1-A598-1DB015502EDD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
