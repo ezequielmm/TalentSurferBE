@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace EY.TalentSurfer.Api
@@ -44,7 +45,7 @@ namespace EY.TalentSurfer.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -62,6 +63,7 @@ namespace EY.TalentSurfer.Api
                 app.UseHsts();
             }
 
+            loggerFactory.AddFile("Logs/log-{Date}.txt");
             app.UseHttpsRedirection();
             app.UseMvc();
         }
