@@ -24,6 +24,9 @@ namespace EY.TalentSurfer.Services.Configs
             CreateMap<Status, StatusReadDto>();
             CreateMap<StatusCreateDto, Status>();
             CreateMap<StatusUpdateDto, Status>();
+            CreateMap<Position, PositionReadDto>();
+            CreateMap<PositionCreateDto, Position>();
+            CreateMap<PositionUpdateDto, Position>();
         }
     }
 }
