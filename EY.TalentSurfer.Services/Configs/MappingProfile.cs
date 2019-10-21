@@ -15,6 +15,9 @@ namespace EY.TalentSurfer.Services.Configs
             CreateMap<Location, LocationReadDto>();
             CreateMap<LocationCreateDto, Location>();
             CreateMap<LocationUpdateDto, Location>();
+            CreateMap<Seniority, SeniorityReadDto>();
+            CreateMap<SeniorityCreateDto, Seniority>();
+            CreateMap<SeniorityUpdateDto, Seniority>();
             CreateMap<Certainty, CertaintyReadDto>();
             CreateMap<CertaintyCreateDto, Certainty>();
             CreateMap<CertaintyUpdateDto, Certainty>();
