@@ -32,7 +32,7 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
                 var result = await Target.GetStatus();
 
                 // Assert
-                Mock.Get(_service).Verify(s => s.GetAllAsync<StatusReadDto>(), Times.Once);
+                Mock.Get(_service).Verify(s => s.GetAllAsync(), Times.Once);
             }
         }
 
@@ -48,7 +48,7 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
                 var result = await Target.GetStatus(id);
 
                 // Assert
-                Mock.Get(_service).Verify(s => s.GetAsync<StatusReadDto>(id), Times.Once);
+                Mock.Get(_service).Verify(s => s.GetAsync(id), Times.Once);
             }
 
             [Fact]
@@ -56,7 +56,7 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
             {
                 // Arrenge
                 var id = 1;
-                Mock.Get(_service).Setup(s => s.GetAsync<StatusReadDto>(id)).ReturnsAsync((StatusReadDto)null);
+                Mock.Get(_service).Setup(s => s.GetAsync(id)).ReturnsAsync((StatusReadDto)null);
 
                 // Act
                 var result = await Target.GetStatus(id);
@@ -70,7 +70,7 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
             {
                 // Arrenge
                 var id = 1;
-                Mock.Get(_service).Setup(s => s.GetAsync<StatusReadDto>(id)).ReturnsAsync(new StatusReadDto());
+                Mock.Get(_service).Setup(s => s.GetAsync(id)).ReturnsAsync(new StatusReadDto());
 
                 // Act
                 var result = await Target.GetStatus(id);
@@ -122,12 +122,13 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
                 // Arrenge
                 var id = 1;
                 var updateDto = new StatusUpdateDto();
+                Mock.Get(_service).Setup(s => s.ExistsAsync(It.IsAny<int>())).ReturnsAsync(false);
 
                 // Act
                 var result = await Target.PutStatus(id, updateDto);
 
                 // Assert
-                Assert.IsType<NoContentResult>(result);
+                Assert.IsType<NotFoundResult>(result);
             }
         }
 
@@ -135,7 +136,7 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
         {
             public Method_PostStatus()
             {
-                Mock.Get(_service).Setup(s => s.CreateAsync<StatusReadDto>(It.IsAny<StatusCreateDto>())).ReturnsAsync(new StatusReadDto());
+                Mock.Get(_service).Setup(s => s.CreateAsync(It.IsAny<StatusCreateDto>())).ReturnsAsync(new StatusReadDto());
             }
 
             [Fact]
@@ -148,7 +149,7 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
                 var result = await Target.PostStatus(createDto);
 
                 // Assert
-                Mock.Get(_service).Verify(s => s.CreateAsync<StatusReadDto>(createDto), Times.Once);
+                Mock.Get(_service).Verify(s => s.CreateAsync(createDto), Times.Once);
             }
 
             [Fact]

@@ -32,7 +32,7 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
                 var result = await Target.GetCertainty();
 
                 // Assert
-                Mock.Get(_service).Verify(s => s.GetAllAsync<CertaintyReadDto>(), Times.Once);
+                Mock.Get(_service).Verify(s => s.GetAllAsync(), Times.Once);
             }
         }
 
@@ -48,7 +48,7 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
                 var result = await Target.GetCertainty(id);
 
                 // Assert
-                Mock.Get(_service).Verify(s => s.GetAsync<CertaintyReadDto>(id), Times.Once);
+                Mock.Get(_service).Verify(s => s.GetAsync(id), Times.Once);
             }
 
             [Fact]
@@ -56,7 +56,7 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
             {
                 // Arrenge
                 var id = 1;
-                Mock.Get(_service).Setup(s => s.GetAsync<CertaintyReadDto>(id)).ReturnsAsync((CertaintyReadDto)null);
+                Mock.Get(_service).Setup(s => s.GetAsync(id)).ReturnsAsync((CertaintyReadDto)null);
 
                 // Act
                 var result = await Target.GetCertainty(id);
@@ -70,7 +70,7 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
             {
                 // Arrenge
                 var id = 1;
-                Mock.Get(_service).Setup(s => s.GetAsync<CertaintyReadDto>(id)).ReturnsAsync(new CertaintyReadDto());
+                Mock.Get(_service).Setup(s => s.GetAsync(id)).ReturnsAsync(new CertaintyReadDto());
 
                 // Act
                 var result = await Target.GetCertainty(id);
@@ -122,12 +122,13 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
                 // Arrenge
                 var id = 1;
                 var updateDto = new CertaintyUpdateDto();
+                Mock.Get(_service).Setup(s => s.ExistsAsync(It.IsAny<int>())).ReturnsAsync(false);
 
                 // Act
                 var result = await Target.PutCertainty(id, updateDto);
 
                 // Assert
-                Assert.IsType<NoContentResult>(result);
+                Assert.IsType<NotFoundResult>(result);
             }
         }
 
@@ -135,7 +136,7 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
         {
             public Method_PostCertainty()
             {
-                Mock.Get(_service).Setup(s => s.CreateAsync<CertaintyReadDto>(It.IsAny<CertaintyCreateDto>())).ReturnsAsync(new CertaintyReadDto());
+                Mock.Get(_service).Setup(s => s.CreateAsync(It.IsAny<CertaintyCreateDto>())).ReturnsAsync(new CertaintyReadDto());
             }
 
             [Fact]
@@ -148,7 +149,7 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
                 var result = await Target.PostCertainty(createDto);
 
                 // Assert
-                Mock.Get(_service).Verify(s => s.CreateAsync<CertaintyReadDto>(createDto), Times.Once);
+                Mock.Get(_service).Verify(s => s.CreateAsync(createDto), Times.Once);
             }
 
             [Fact]

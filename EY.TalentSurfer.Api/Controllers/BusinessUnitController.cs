@@ -2,7 +2,6 @@ using EY.TalentSurfer.Dto;
 using EY.TalentSurfer.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Net;
 using System.Threading.Tasks;
 
 namespace EY.TalentSurfer.Api.Controllers
@@ -23,7 +22,7 @@ namespace EY.TalentSurfer.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BusinessUnitReadDto>>> GetBusinessUnits()
         {
-            var businessUnits = await _service.GetAllAsync<BusinessUnitReadDto>();
+            var businessUnits = await _service.GetAllAsync();
             return Ok(businessUnits);
         }
 
@@ -31,7 +30,7 @@ namespace EY.TalentSurfer.Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<BusinessUnitReadDto>> GetBusinessUnit(int id)
         {
-            var businessUnit = await _service.GetAsync<BusinessUnitReadDto>(id);
+            var businessUnit = await _service.GetAsync(id);
 
             if (businessUnit == null)
             {
@@ -47,16 +46,16 @@ namespace EY.TalentSurfer.Api.Controllers
         {
             if (!await BusinessUnitExists(id)) return NotFound();
 
-            await _service.UpdateAsync(id, businessUnit);
+            var updated = await _service.UpdateAsync(id, businessUnit);
 
-            return NoContent();
+            return Ok(updated);
         }
 
         // POST: api/BusinessUnit
         [HttpPost]
         public async Task<ActionResult<BusinessUnitReadDto>> PostBusinessUnit(BusinessUnitCreateDto businessUnit)
         {
-            var created = await _service.CreateAsync<BusinessUnitReadDto>(businessUnit);
+            var created = await _service.CreateAsync(businessUnit);
 
             return CreatedAtAction("GetBusinessUnit", new { id = created.Id }, businessUnit);
         }

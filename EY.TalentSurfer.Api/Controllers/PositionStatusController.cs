@@ -21,7 +21,7 @@ namespace EY.TalentSurfer.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PositionStatusReadDto>>> GetPositionStatus()
         {
-            var certainties = await _service.GetAllAsync<PositionStatusReadDto>();
+            var certainties = await _service.GetAllAsync();
             return Ok(certainties);
         }
 
@@ -29,7 +29,7 @@ namespace EY.TalentSurfer.Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<PositionStatusReadDto>> GetPositionStatus(int id)
         {
-            var positionStatus = await _service.GetAsync<PositionStatusReadDto>(id);
+            var positionStatus = await _service.GetAsync(id);
 
             if (positionStatus == null)
             {
@@ -45,16 +45,16 @@ namespace EY.TalentSurfer.Api.Controllers
         {
             if (!await PositionStatusExists(id)) return NotFound();
 
-            await _service.UpdateAsync(id, positionStatus);
+            var updated = await _service.UpdateAsync(id, positionStatus);
 
-            return NoContent();
+            return Ok(updated);
         }
 
         // POST: api/PositionStatus
         [HttpPost]
         public async Task<ActionResult<PositionStatusReadDto>> PostPositionStatus(PositionStatusCreateDto positionStatus)
         {
-            var created = await _service.CreateAsync<PositionStatusReadDto>(positionStatus);
+            var created = await _service.CreateAsync(positionStatus);
 
             return CreatedAtAction("GetPositionStatus", new { id = created.Id }, positionStatus);
         }

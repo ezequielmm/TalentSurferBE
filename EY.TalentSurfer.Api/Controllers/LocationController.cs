@@ -21,7 +21,7 @@ namespace EY.TalentSurfer.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<LocationReadDto>>> GetLocations()
         {
-            var locations = await _service.GetAllAsync<LocationReadDto>();
+            var locations = await _service.GetAllAsync();
             return Ok(locations);
         }
 
@@ -29,7 +29,7 @@ namespace EY.TalentSurfer.Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<LocationReadDto>> GetLocation([FromRoute] int id)
         {
-            var location = await _service.GetAsync<LocationReadDto>(id);
+            var location = await _service.GetAsync(id);
 
             if (location == null)
             {
@@ -45,16 +45,16 @@ namespace EY.TalentSurfer.Api.Controllers
         {
             if (!await _service.ExistsAsync(id)) return NotFound();
 
-            await _service.UpdateAsync(id, location);
+            var updated = await _service.UpdateAsync(id, location);
 
-            return NoContent();
+            return Ok(updated);
         }
 
         // POST: api/Location
         [HttpPost]
         public async Task<ActionResult<LocationReadDto>> PostLocation([FromBody] LocationCreateDto location)
         {
-            var created = await _service.CreateAsync<LocationReadDto>(location);
+            var created = await _service.CreateAsync(location);
 
             return CreatedAtAction("GetLocation", new { id = created.Id }, created);
         }

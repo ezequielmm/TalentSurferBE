@@ -21,7 +21,7 @@ namespace EY.TalentSurfer.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<StatusReadDto>>> GetStatus()
         {
-            var certainties = await _service.GetAllAsync<StatusReadDto>();
+            var certainties = await _service.GetAllAsync();
             return Ok(certainties);
         }
 
@@ -29,7 +29,7 @@ namespace EY.TalentSurfer.Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<StatusReadDto>> GetStatus(int id)
         {
-            var status = await _service.GetAsync<StatusReadDto>(id);
+            var status = await _service.GetAsync(id);
 
             if (status == null)
             {
@@ -45,16 +45,16 @@ namespace EY.TalentSurfer.Api.Controllers
         {
             if (!await StatusExists(id)) return NotFound();
 
-            await _service.UpdateAsync(id, status);
+            var updated = await _service.UpdateAsync(id, status);
 
-            return NoContent();
+            return Ok(updated);
         }
 
         // POST: api/Status
         [HttpPost]
         public async Task<ActionResult<StatusReadDto>> PostStatus(StatusCreateDto status)
         {
-            var created = await _service.CreateAsync<StatusReadDto>(status);
+            var created = await _service.CreateAsync(status);
 
             return CreatedAtAction("GetStatus", new { id = created.Id }, status);
         }

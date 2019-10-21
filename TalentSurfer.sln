@@ -33,6 +33,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EY.TalentSurfer.Support.Per
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{8F0434C5-1213-42C1-A598-1DB015502EDD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EY.TalentSurfer.Support.Services", "EY.TalentSurfer.Support.Services\EY.TalentSurfer.Support.Services.csproj", "{3C9E2557-AB65-4078-A9D9-898E28C436F8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -223,6 +225,18 @@ Global
 		{8F0434C5-1213-42C1-A598-1DB015502EDD}.Release|x64.Build.0 = Release|Any CPU
 		{8F0434C5-1213-42C1-A598-1DB015502EDD}.Release|x86.ActiveCfg = Release|Any CPU
 		{8F0434C5-1213-42C1-A598-1DB015502EDD}.Release|x86.Build.0 = Release|Any CPU
+		{3C9E2557-AB65-4078-A9D9-898E28C436F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C9E2557-AB65-4078-A9D9-898E28C436F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C9E2557-AB65-4078-A9D9-898E28C436F8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3C9E2557-AB65-4078-A9D9-898E28C436F8}.Debug|x64.Build.0 = Debug|Any CPU
+		{3C9E2557-AB65-4078-A9D9-898E28C436F8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3C9E2557-AB65-4078-A9D9-898E28C436F8}.Debug|x86.Build.0 = Debug|Any CPU
+		{3C9E2557-AB65-4078-A9D9-898E28C436F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C9E2557-AB65-4078-A9D9-898E28C436F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C9E2557-AB65-4078-A9D9-898E28C436F8}.Release|x64.ActiveCfg = Release|Any CPU
+		{3C9E2557-AB65-4078-A9D9-898E28C436F8}.Release|x64.Build.0 = Release|Any CPU
+		{3C9E2557-AB65-4078-A9D9-898E28C436F8}.Release|x86.ActiveCfg = Release|Any CPU
+		{3C9E2557-AB65-4078-A9D9-898E28C436F8}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

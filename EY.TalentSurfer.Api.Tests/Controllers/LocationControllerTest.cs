@@ -32,7 +32,7 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
                 var result = await Target.GetLocations();
 
                 // Assert
-                Mock.Get(_service).Verify(s => s.GetAllAsync<LocationReadDto>(), Times.Once);
+                Mock.Get(_service).Verify(s => s.GetAllAsync(), Times.Once);
             }
         }
 
@@ -48,7 +48,7 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
                 var result = await Target.GetLocation(id);
 
                 // Assert
-                Mock.Get(_service).Verify(s => s.GetAsync<LocationReadDto>(id), Times.Once);
+                Mock.Get(_service).Verify(s => s.GetAsync(id), Times.Once);
             }
 
             [Fact]
@@ -56,7 +56,7 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
             {
                 // Arrenge
                 var id = 1;
-                Mock.Get(_service).Setup(s => s.GetAsync<LocationReadDto>(id)).ReturnsAsync((LocationReadDto)null);
+                Mock.Get(_service).Setup(s => s.GetAsync(id)).ReturnsAsync((LocationReadDto)null);
 
                 // Act
                 var result = await Target.GetLocation(id);
@@ -70,7 +70,7 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
             {
                 // Arrenge
                 var id = 1;
-                Mock.Get(_service).Setup(s => s.GetAsync<LocationReadDto>(id)).ReturnsAsync(new LocationReadDto());
+                Mock.Get(_service).Setup(s => s.GetAsync(id)).ReturnsAsync(new LocationReadDto());
 
                 // Act
                 var result = await Target.GetLocation(id);
@@ -122,12 +122,13 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
                 // Arrenge
                 var id = 1;
                 var updateDto = new LocationUpdateDto();
+                Mock.Get(_service).Setup(s => s.ExistsAsync(It.IsAny<int>())).ReturnsAsync(false);
 
                 // Act
                 var result = await Target.PutLocation(id, updateDto);
 
                 // Assert
-                Assert.IsType<NoContentResult>(result);
+                Assert.IsType<NotFoundResult>(result);
             }
         }
 
@@ -135,7 +136,7 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
         {
             public Method_PostLocation()
             {
-                Mock.Get(_service).Setup(s => s.CreateAsync<LocationReadDto>(It.IsAny<LocationCreateDto>())).ReturnsAsync(new LocationReadDto());
+                Mock.Get(_service).Setup(s => s.CreateAsync(It.IsAny<LocationCreateDto>())).ReturnsAsync(new LocationReadDto());
             }
 
             [Fact]
@@ -148,7 +149,7 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
                 var result = await Target.PostLocation(createDto);
 
                 // Assert
-                Mock.Get(_service).Verify(s => s.CreateAsync<LocationReadDto>(createDto), Times.Once);
+                Mock.Get(_service).Verify(s => s.CreateAsync(createDto), Times.Once);
             }
 
             [Fact]

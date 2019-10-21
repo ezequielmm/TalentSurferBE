@@ -1,4 +1,4 @@
-﻿namespace EY.TalentSurfer.Dto.Contracts
+﻿namespace EY.TalentSurfer.Support.Services.Contracts
 {
     public interface IReadDto
     {

@@ -1,4 +1,4 @@
-﻿using EY.TalentSurfer.Dto.Contracts;
+﻿using EY.TalentSurfer.Support.Services.Contracts;
 
 namespace EY.TalentSurfer.Dto
 {

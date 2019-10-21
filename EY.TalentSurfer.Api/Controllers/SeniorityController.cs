@@ -21,7 +21,7 @@ namespace EY.TalentSurfer.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SeniorityReadDto>>> GetSeniority()
         {
-            var certainties = await _service.GetAllAsync<SeniorityReadDto>();
+            var certainties = await _service.GetAllAsync();
             return Ok(certainties);
         }
 
@@ -29,7 +29,7 @@ namespace EY.TalentSurfer.Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<SeniorityReadDto>> GetSeniority(int id)
         {
-            var seniority = await _service.GetAsync<SeniorityReadDto>(id);
+            var seniority = await _service.GetAsync(id);
 
             if (seniority == null)
             {
@@ -45,16 +45,16 @@ namespace EY.TalentSurfer.Api.Controllers
         {
             if (!await SeniorityExists(id)) return NotFound();
 
-            await _service.UpdateAsync(id, seniority);
+            var updated = await _service.UpdateAsync(id, seniority);
 
-            return NoContent();
+            return Ok(updated);
         }
 
         // POST: api/Seniority
         [HttpPost]
         public async Task<ActionResult<SeniorityReadDto>> PostSeniority(SeniorityCreateDto seniority)
         {
-            var created = await _service.CreateAsync<SeniorityReadDto>(seniority);
+            var created = await _service.CreateAsync(seniority);
 
             return CreatedAtAction("GetSeniority", new { id = created.Id }, seniority);
         }

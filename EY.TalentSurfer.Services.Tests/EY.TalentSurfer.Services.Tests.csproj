@@ -13,4 +13,11 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EY.TalentSurfer.Dto\EY.TalentSurfer.Dto.csproj" />
+    <ProjectReference Include="..\EY.TalentSurfer.Services\EY.TalentSurfer.Services.csproj" />
+    <ProjectReference Include="..\EY.TalentSurfer.Support.Persistence\EY.TalentSurfer.Support.Persistence.csproj" />
+    <ProjectReference Include="..\EY.TalentSurfer.Support.Services\EY.TalentSurfer.Support.Services.csproj" />
+  </ItemGroup>
+
 </Project>

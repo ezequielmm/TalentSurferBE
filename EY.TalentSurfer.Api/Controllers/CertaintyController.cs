@@ -21,7 +21,7 @@ namespace EY.TalentSurfer.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CertaintyReadDto>>> GetCertainty()
         {
-            var certainties = await _service.GetAllAsync<CertaintyReadDto>();
+            var certainties = await _service.GetAllAsync();
             return Ok(certainties);
         }
 
@@ -29,7 +29,7 @@ namespace EY.TalentSurfer.Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<CertaintyReadDto>> GetCertainty(int id)
         {
-            var certainty = await _service.GetAsync<CertaintyReadDto>(id);
+            var certainty = await _service.GetAsync(id);
 
             if (certainty == null)
             {
@@ -45,16 +45,16 @@ namespace EY.TalentSurfer.Api.Controllers
         {
             if (!await CertaintyExists(id)) return NotFound();
 
-            await _service.UpdateAsync(id, certainty);
+            var updated = await _service.UpdateAsync(id, certainty);
 
-            return NoContent();
+            return Ok(updated);
         }
 
         // POST: api/Certainty
         [HttpPost]
         public async Task<ActionResult<CertaintyReadDto>> PostCertainty(CertaintyCreateDto certainty)
         {
-            var created = await _service.CreateAsync<CertaintyReadDto>(certainty);
+            var created = await _service.CreateAsync(certainty);
 
             return CreatedAtAction("GetCertainty", new { id = created.Id }, certainty);
         }

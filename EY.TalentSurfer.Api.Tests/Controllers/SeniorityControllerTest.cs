@@ -32,7 +32,7 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
                 var result = await Target.GetSeniority();
 
                 // Assert
-                Mock.Get(_service).Verify(s => s.GetAllAsync<SeniorityReadDto>(), Times.Once);
+                Mock.Get(_service).Verify(s => s.GetAllAsync(), Times.Once);
             }
         }
 
@@ -48,7 +48,7 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
                 var result = await Target.GetSeniority(id);
 
                 // Assert
-                Mock.Get(_service).Verify(s => s.GetAsync<SeniorityReadDto>(id), Times.Once);
+                Mock.Get(_service).Verify(s => s.GetAsync(id), Times.Once);
             }
 
             [Fact]
@@ -56,7 +56,7 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
             {
                 // Arrenge
                 var id = 1;
-                Mock.Get(_service).Setup(s => s.GetAsync<SeniorityReadDto>(id)).ReturnsAsync((SeniorityReadDto)null);
+                Mock.Get(_service).Setup(s => s.GetAsync(id)).ReturnsAsync((SeniorityReadDto)null);
 
                 // Act
                 var result = await Target.GetSeniority(id);
@@ -70,7 +70,7 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
             {
                 // Arrenge
                 var id = 1;
-                Mock.Get(_service).Setup(s => s.GetAsync<SeniorityReadDto>(id)).ReturnsAsync(new SeniorityReadDto());
+                Mock.Get(_service).Setup(s => s.GetAsync(id)).ReturnsAsync(new SeniorityReadDto());
 
                 // Act
                 var result = await Target.GetSeniority(id);
@@ -122,12 +122,13 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
                 // Arrenge
                 var id = 1;
                 var updateDto = new SeniorityUpdateDto();
+                Mock.Get(_service).Setup(s => s.ExistsAsync(It.IsAny<int>())).ReturnsAsync(false);
 
                 // Act
                 var result = await Target.PutSeniority(id, updateDto);
 
                 // Assert
-                Assert.IsType<NoContentResult>(result);
+                Assert.IsType<NotFoundResult>(result);
             }
         }
 
@@ -135,7 +136,7 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
         {
             public Method_PostSeniority()
             {
-                Mock.Get(_service).Setup(s => s.CreateAsync<SeniorityReadDto>(It.IsAny<SeniorityCreateDto>())).ReturnsAsync(new SeniorityReadDto());
+                Mock.Get(_service).Setup(s => s.CreateAsync(It.IsAny<SeniorityCreateDto>())).ReturnsAsync(new SeniorityReadDto());
             }
 
             [Fact]
@@ -148,7 +149,7 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
                 var result = await Target.PostSeniority(createDto);
 
                 // Assert
-                Mock.Get(_service).Verify(s => s.CreateAsync<SeniorityReadDto>(createDto), Times.Once);
+                Mock.Get(_service).Verify(s => s.CreateAsync(createDto), Times.Once);
             }
 
             [Fact]
