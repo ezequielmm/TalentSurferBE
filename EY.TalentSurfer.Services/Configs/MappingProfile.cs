@@ -21,6 +21,9 @@ namespace EY.TalentSurfer.Services.Configs
             CreateMap<Certainty, CertaintyReadDto>();
             CreateMap<CertaintyCreateDto, Certainty>();
             CreateMap<CertaintyUpdateDto, Certainty>();
+            CreateMap<Status, StatusReadDto>();
+            CreateMap<StatusCreateDto, Status>();
+            CreateMap<StatusUpdateDto, Status>();
         }
     }
 }
