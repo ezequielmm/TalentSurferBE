@@ -1,8 +1,8 @@
+using EY.TalentSurfer.Domain;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using EY.TalentSurfer.Domain;
-using Microsoft.EntityFrameworkCore;
 
 namespace EY.TalentSurfer.Support.Persistence.Sql
 {
