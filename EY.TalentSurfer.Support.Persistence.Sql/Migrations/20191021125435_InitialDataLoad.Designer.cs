@@ -4,14 +4,16 @@ using EY.TalentSurfer.Support.Persistence.Sql;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
 {
     [DbContext(typeof(TalentSurferContext))]
-    partial class TalentSurferContextModelSnapshot : ModelSnapshot
+    [Migration("20191021125435_InitialDataLoad")]
+    partial class InitialDataLoad
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

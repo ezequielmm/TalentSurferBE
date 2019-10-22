@@ -1,4 +1,5 @@
 using EY.TalentSurfer.Domain;
+using EY.TalentSurfer.Support.Persistence.Sql.InitialDataLoad;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading;
@@ -56,6 +57,18 @@ namespace EY.TalentSurfer.Support.Persistence.Sql
                         break;
                 }
             }
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new LocationDataSeed(_dateTimeProvider));
+            modelBuilder.ApplyConfiguration(new PositionDataSeed(_dateTimeProvider));
+            modelBuilder.ApplyConfiguration(new StatusDataSeed(_dateTimeProvider));
+            modelBuilder.ApplyConfiguration(new BusinessUnitDataSeed(_dateTimeProvider));
+            modelBuilder.ApplyConfiguration(new SeniorityDataSeed(_dateTimeProvider));
+            modelBuilder.ApplyConfiguration(new PositionStatusDataSeed(_dateTimeProvider));
+            modelBuilder.ApplyConfiguration(new CertaintyDataSeed(_dateTimeProvider));
         }
     }
 }
