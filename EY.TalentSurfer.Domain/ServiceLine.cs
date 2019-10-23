@@ -1,8 +1,8 @@
-﻿using EY.TalentSurfer.Support.Services.Contracts;
+using EY.TalentSurfer.Support.Persistence;
 
-namespace EY.TalentSurfer.Dto
+namespace EY.TalentSurfer.Domain
 {
-    public class BusinessUnitUpdateDto : IUpdateDto
+    public class ServiceLine : AuditableEntity
     {
         public int SortOrder { get; set; }
         public string Description { get; set; }

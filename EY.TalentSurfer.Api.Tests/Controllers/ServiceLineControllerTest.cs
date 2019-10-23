@@ -8,20 +8,20 @@ using Xunit;
 
 namespace EY.TalentSurfer.Api.Tests.Controllers
 {
-    public class BusinessUnitControllerTest
+    public class ServiceLineControllerTest
     {
-        private readonly IBusinessUnitService _service;
+        private readonly IServiceLineService _service;
 
-        public BusinessUnitControllerTest()
+        public ServiceLineControllerTest()
         {
-            _service = Mock.Of<IBusinessUnitService>();
+            _service = Mock.Of<IServiceLineService>();
 
-            Target = new BusinessUnitController(_service);
+            Target = new ServiceLineController(_service);
         }
 
-        private BusinessUnitController Target { get; }
+        private ServiceLineController Target { get; }
 
-        public class Method_GetBusinessUnits : BusinessUnitControllerTest
+        public class Method_GetServiceLines : ServiceLineControllerTest
         {
             [Fact]
             public async Task Calls_GetAllAsync_from_service()
@@ -29,14 +29,14 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
                 // Arrenge
 
                 // Act
-                var result = await Target.GetBusinessUnits();
+                var result = await Target.GetServiceLines();
 
                 // Assert
                 Mock.Get(_service).Verify(s => s.GetAllAsync(), Times.Once);
             }
         }
 
-        public class Method_GetBusinessUnit : BusinessUnitControllerTest
+        public class Method_GetServiceLine : ServiceLineControllerTest
         {
             [Fact]
             public async Task Calls_GetAsync_from_service()
@@ -45,7 +45,7 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
                 var id = 1;
 
                 // Act
-                var result = await Target.GetBusinessUnit(id);
+                var result = await Target.GetServiceLine(id);
 
                 // Assert
                 Mock.Get(_service).Verify(s => s.GetAsync(id), Times.Once);
@@ -56,10 +56,10 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
             {
                 // Arrenge
                 var id = 1;
-                Mock.Get(_service).Setup(s => s.GetAsync(id)).ReturnsAsync((BusinessUnitReadDto)null);
+                Mock.Get(_service).Setup(s => s.GetAsync(id)).ReturnsAsync((ServiceLineReadDto)null);
 
                 // Act
-                var result = await Target.GetBusinessUnit(id);
+                var result = await Target.GetServiceLine(id);
 
                 // Assert
                 Assert.IsType<NotFoundResult>(result.Result);
@@ -70,19 +70,19 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
             {
                 // Arrenge
                 var id = 1;
-                Mock.Get(_service).Setup(s => s.GetAsync(id)).ReturnsAsync(new BusinessUnitReadDto());
+                Mock.Get(_service).Setup(s => s.GetAsync(id)).ReturnsAsync(new ServiceLineReadDto());
 
                 // Act
-                var result = await Target.GetBusinessUnit(id);
+                var result = await Target.GetServiceLine(id);
 
                 // Assert
                 Assert.IsType<OkObjectResult>(result.Result);
             }
         }
 
-        public class Method_PutBusinessUnit : BusinessUnitControllerTest
+        public class Method_PutServiceLine : ServiceLineControllerTest
         {
-            public Method_PutBusinessUnit()
+            public Method_PutServiceLine()
             {
                 Mock.Get(_service).Setup(s => s.ExistsAsync(It.IsAny<int>())).ReturnsAsync(true);
             }
@@ -92,10 +92,10 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
             {
                 // Arrenge
                 var id = 1;
-                var updateDto = new BusinessUnitUpdateDto();
+                var updateDto = new ServiceLineUpdateDto();
 
                 // Act
-                var result = await Target.PutBusinessUnit(id, updateDto);
+                var result = await Target.PutServiceLine(id, updateDto);
 
                 // Assert
                 Mock.Get(_service).Verify(s => s.UpdateAsync(id, updateDto), Times.Once);
@@ -106,11 +106,11 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
             {
                 // Arrenge
                 var id = 1;
-                var updateDto = new BusinessUnitUpdateDto();
+                var updateDto = new ServiceLineUpdateDto();
                 Mock.Get(_service).Setup(s => s.ExistsAsync(It.IsAny<int>())).ReturnsAsync(false);
 
                 // Act
-                var result = await Target.PutBusinessUnit(id, updateDto);
+                var result = await Target.PutServiceLine(id, updateDto);
 
                 // Assert
                 Assert.IsType<NotFoundResult>(result);
@@ -121,32 +121,32 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
             {
                 // Arrenge
                 var id = 1;
-                var updateDto = new BusinessUnitUpdateDto();
                 Mock.Get(_service).Setup(s => s.ExistsAsync(It.IsAny<int>())).ReturnsAsync(false);
+                var updateDto = new ServiceLineUpdateDto();
 
                 // Act
-                var result = await Target.PutBusinessUnit(id, updateDto);
+                var result = await Target.PutServiceLine(id, updateDto);
 
                 // Assert
                 Assert.IsType<NotFoundResult>(result);
             }
         }
 
-        public class Method_PostBusinessUnit : BusinessUnitControllerTest
+        public class Method_PostServiceLine : ServiceLineControllerTest
         {
-            public Method_PostBusinessUnit()
+            public Method_PostServiceLine()
             {
-                Mock.Get(_service).Setup(s => s.CreateAsync(It.IsAny<BusinessUnitCreateDto>())).ReturnsAsync(new BusinessUnitReadDto());
+                Mock.Get(_service).Setup(s => s.CreateAsync(It.IsAny<ServiceLineCreateDto>())).ReturnsAsync(new ServiceLineReadDto());
             }
 
             [Fact]
             public async Task Calls_GetAsync_from_service()
             {
                 // Arrenge
-                var createDto = new BusinessUnitCreateDto();
+                var createDto = new ServiceLineCreateDto();
 
                 // Act
-                var result = await Target.PostBusinessUnit(createDto);
+                var result = await Target.PostServiceLine(createDto);
 
                 // Assert
                 Mock.Get(_service).Verify(s => s.CreateAsync(createDto), Times.Once);
@@ -156,19 +156,19 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
             public async Task If_not_found_returns_NotFound()
             {
                 // Arrenge
-                var createDto = new BusinessUnitCreateDto();
+                var createDto = new ServiceLineCreateDto();
 
                 // Act
-                var result = await Target.PostBusinessUnit(createDto);
+                var result = await Target.PostServiceLine(createDto);
 
                 // Assert
                 Assert.IsType<CreatedAtActionResult>(result.Result);
             }
         }
 
-        public class Method_DeleteBusinessUnit : BusinessUnitControllerTest
+        public class Method_DeleteServiceLine : ServiceLineControllerTest
         {
-            public Method_DeleteBusinessUnit()
+            public Method_DeleteServiceLine()
             {
                 Mock.Get(_service).Setup(s => s.ExistsAsync(It.IsAny<int>())).ReturnsAsync(true);
             }
@@ -180,7 +180,7 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
                 var id = 1;
 
                 // Act
-                var result = await Target.DeleteBusinessUnit(id);
+                var result = await Target.DeleteServiceLine(id);
 
                 // Assert
                 Mock.Get(_service).Verify(s => s.DeleteAsync(id), Times.Once);
@@ -193,7 +193,7 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
                 var id = 1;
 
                 // Act
-                var result = await Target.DeleteBusinessUnit(id);
+                var result = await Target.DeleteServiceLine(id);
 
                 // Assert
                 Assert.IsType<NoContentResult>(result);
@@ -207,7 +207,7 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
                 Mock.Get(_service).Setup(s => s.ExistsAsync(It.IsAny<int>())).ReturnsAsync(false);
 
                 // Act
-                var result = await Target.DeleteBusinessUnit(id);
+                var result = await Target.DeleteServiceLine(id);
 
                 // Assert
                 Assert.IsType<NotFoundResult>(result);

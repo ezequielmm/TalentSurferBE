@@ -8,6 +8,7 @@ namespace EY.TalentSurfer.Support.Persistence
     {
         Task<IEnumerable<T>> ToListAsync();
         Task<T> FindAsync(int id);
+        Task<IEnumerable<T>> FindRangeAsync(IEnumerable<int> ids);
         Task DeleteAsync(T entity);
         Task InsertAsync(T entity);
         Task InsertAsync(IEnumerable<T> entities);

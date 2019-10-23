@@ -11,29 +11,33 @@ namespace EY.TalentSurfer.Support.Persistence.Sql
 {
     public class EntityRepository<T> : IRepository<T> where T : Entity
     {
-        private readonly TalentSurferContext _context;
-        private readonly IQueryable<T> _query;
+        protected readonly TalentSurferContext _context;
 
         public EntityRepository(TalentSurferContext context)
         {
             _context = context;
-            _query = context.Set<T>();
         }
 
-        public Type ElementType => _query.ElementType;
-        public Expression Expression => _query.Expression;
-        public IQueryProvider Provider => _query.Provider;
-        public IEnumerator<T> GetEnumerator() => _query.GetEnumerator();
-        IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)_query).GetEnumerator();
+        protected virtual IQueryable<T> Query => _context.Set<T>();
+        public Type ElementType => Query.ElementType;
+        public Expression Expression => Query.Expression;
+        public IQueryProvider Provider => Query.Provider;
+        public IEnumerator<T> GetEnumerator() => Query.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)Query).GetEnumerator();
 
         public async Task<IEnumerable<T>> ToListAsync()
         {
-            return await _query.ToListAsync();
+            return await Query.ToListAsync();
         }
 
         public async Task<T> FindAsync(int id)
         {
-            return await _query.SingleOrDefaultAsync(e => e.Id == id);
+            return await Query.SingleOrDefaultAsync(e => e.Id == id);
+        }
+
+        public async Task<IEnumerable<T>> FindRangeAsync(IEnumerable<int> ids)
+        {
+            return await Query.Where(e => ids.Contains(e.Id)).ToListAsync();
         }
 
         public async Task InsertAsync(T entity)
@@ -95,7 +99,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql
 
         public async Task<bool> ExistsAsync(int id)
         {
-            return await _query.SingleOrDefaultAsync(e => e.Id == id) != null;
+            return await Query.SingleOrDefaultAsync(e => e.Id == id) != null;
         }
     }
 }

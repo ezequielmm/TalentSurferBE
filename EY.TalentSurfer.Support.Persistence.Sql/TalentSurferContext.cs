@@ -19,13 +19,15 @@ namespace EY.TalentSurfer.Support.Persistence.Sql
             _dateTimeProvider = dateTimeProvider;
         }
 
-        public DbSet<BusinessUnit> BusinessUnit { get; set; }
+        public DbSet<ServiceLine> ServiceLine { get; set; }
         public DbSet<Certainty> Certainty { get; set; }
         public DbSet<Location> Location { get; set; }
         public DbSet<Position> Position { get; set; }
         public DbSet<PositionStatus> PositionStatus { get; set; }
         public DbSet<Seniority> Seniority { get; set; }
         public DbSet<Status> Status { get; set; }
+        public DbSet<Opportunity> Opportunity { get; set; }
+        public DbSet<OpportunityLocation> OpportunityLocation { get; set; }        
 
         public async override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -65,10 +67,13 @@ namespace EY.TalentSurfer.Support.Persistence.Sql
             modelBuilder.ApplyConfiguration(new LocationDataSeed(_dateTimeProvider));
             modelBuilder.ApplyConfiguration(new PositionDataSeed(_dateTimeProvider));
             modelBuilder.ApplyConfiguration(new StatusDataSeed(_dateTimeProvider));
-            modelBuilder.ApplyConfiguration(new BusinessUnitDataSeed(_dateTimeProvider));
+            modelBuilder.ApplyConfiguration(new ServiceLineDataSeed(_dateTimeProvider));
             modelBuilder.ApplyConfiguration(new SeniorityDataSeed(_dateTimeProvider));
             modelBuilder.ApplyConfiguration(new PositionStatusDataSeed(_dateTimeProvider));
             modelBuilder.ApplyConfiguration(new CertaintyDataSeed(_dateTimeProvider));
+            modelBuilder.Entity<OpportunityLocation>()
+                .HasKey(e => new { e.OpportunityId, e.LocationId });
+            modelBuilder.ApplyConfiguration(new OpportunityConfiguration(_dateTimeProvider));
         }
     }
 }
