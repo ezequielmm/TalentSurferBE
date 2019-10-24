@@ -6,10 +6,6 @@ namespace EY.TalentSurfer.Dto
     public class LocationUpdateDto : IUpdateDto
     {
         [Required]
-        [Range(0, int.MaxValue)]
-        public int SortOrder { get; set; }
-
-        [Required]
         [MaxLength(1000)]
         public string Description { get; set; }
 
