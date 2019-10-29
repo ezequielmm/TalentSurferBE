@@ -24,7 +24,8 @@ namespace EY.TalentSurfer.Api.Setup
                 .AddScoped<ISeniorityService, SeniorityService>()
                 .AddScoped<ILocationService, LocationService>()
                 .AddScoped<IOpportunityService, OpportunityService>()
-                .AddScoped<IProjectService, ProjectService>();
+                .AddScoped<IProjectService, ProjectService>()
+                .AddScoped<IPositionEYService, PositionEYService>();
         }
 
         public static IServiceCollection AddRepositories(this IServiceCollection services)

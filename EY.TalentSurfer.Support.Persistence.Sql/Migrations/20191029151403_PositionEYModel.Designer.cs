@@ -4,14 +4,16 @@ using EY.TalentSurfer.Support.Persistence.Sql;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
 {
     [DbContext(typeof(TalentSurferContext))]
-    partial class TalentSurferContextModelSnapshot : ModelSnapshot
+    [Migration("20191029151403_PositionEYModel")]
+    partial class PositionEYModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -711,31 +713,6 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Description = "4. Confirmed (Future)",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
                         });
-                });
-
-            modelBuilder.Entity("EY.TalentSurfer.Domain.Project", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("ArchivingFlag");
-
-                    b.Property<string>("Comments");
-
-                    b.Property<string>("CreatedBy");
-
-                    b.Property<DateTimeOffset>("CreatedOn");
-
-                    b.Property<string>("ModifiedBy");
-
-                    b.Property<DateTimeOffset>("ModifiedOn");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Project");
                 });
 
             modelBuilder.Entity("EY.TalentSurfer.Domain.Seniority", b =>
