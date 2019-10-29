@@ -27,7 +27,8 @@ namespace EY.TalentSurfer.Support.Persistence.Sql
         public DbSet<Seniority> Seniority { get; set; }
         public DbSet<Status> Status { get; set; }
         public DbSet<Opportunity> Opportunity { get; set; }
-        public DbSet<OpportunityLocation> OpportunityLocation { get; set; }        
+        public DbSet<OpportunityLocation> OpportunityLocation { get; set; }
+        public DbSet<Project> Project { get; set; }
 
         public async override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
