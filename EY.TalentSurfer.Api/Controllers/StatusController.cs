@@ -1,6 +1,9 @@
 using EY.TalentSurfer.Dto;
 using EY.TalentSurfer.Services.Contracts;
+using EY.TalentSurfer.Support;
+using EY.TalentSurfer.Support.Api.Contracts;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,10 +14,12 @@ namespace EY.TalentSurfer.Api.Controllers
     public class StatusController : ControllerBase
     {
         private readonly IStatusService _service;
+        private readonly IPageLinkBuilder _linkBuilder;
 
-        public StatusController(IStatusService service)
+        public StatusController(IStatusService service, IPageLinkBuilder linkBuilder)
         {
             _service = service;
+            _linkBuilder = linkBuilder;
         }
 
         // GET: api/Status
@@ -73,6 +78,23 @@ namespace EY.TalentSurfer.Api.Controllers
         private async Task<bool> StatusExists(int id)
         {
             return await _service.ExistsAsync(id);
+        }
+
+        // GET: api/Status/Page
+        [HttpGet("Page", Name = "GetStatusPage")]
+        public async Task<ActionResult<IEnumerable<CertaintyReadDto>>> GetStatusPage(int pageNum = 1, int pageSize = 10, string orderColumn = "Id", bool ascendent = true)
+        {
+            var existingPages = (int)Math.Ceiling((double)await _service.CountAsync() / pageSize);
+            if (pageNum > existingPages) return BadRequest(string.Format(Messages.PagesOutOfRange, existingPages, pageSize));
+
+            var statusPage = await _service.GetPage(pageNum, pageSize, orderColumn, ascendent);
+
+            foreach (var link in _linkBuilder.Build(Url, nameof(GetStatusPage), pageNum, pageSize, existingPages))
+            {
+                Response.Headers.Add(link.Key, link.Value);
+            }
+
+            return Ok(statusPage);
         }
     }
 }

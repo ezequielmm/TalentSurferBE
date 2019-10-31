@@ -1,6 +1,9 @@
 using EY.TalentSurfer.Dto;
 using EY.TalentSurfer.Services.Contracts;
+using EY.TalentSurfer.Support;
+using EY.TalentSurfer.Support.Api.Contracts;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,10 +14,12 @@ namespace EY.TalentSurfer.Api.Controllers
     public class SeniorityController : ControllerBase
     {
         private readonly ISeniorityService _service;
+        private readonly IPageLinkBuilder _linkBuilder;
 
-        public SeniorityController(ISeniorityService service)
+        public SeniorityController(ISeniorityService service, IPageLinkBuilder linkBuilder)
         {
             _service = service;
+            _linkBuilder = linkBuilder;
         }
 
         // GET: api/Seniority
@@ -73,6 +78,23 @@ namespace EY.TalentSurfer.Api.Controllers
         private async Task<bool> SeniorityExists(int id)
         {
             return await _service.ExistsAsync(id);
+        }
+
+        // GET: api/Seniority/Page
+        [HttpGet("Page", Name = "GetSeniorityPage")]
+        public async Task<ActionResult<IEnumerable<CertaintyReadDto>>> GetSeniorityPage(int pageNum = 1, int pageSize = 10, string orderColumn = "Id", bool ascendent = true)
+        {
+            var existingPages = (int)Math.Ceiling((double)await _service.CountAsync() / pageSize);
+            if (pageNum > existingPages) return BadRequest(string.Format(Messages.PagesOutOfRange, existingPages, pageSize));
+
+            var seriotiesPage = await _service.GetPage(pageNum, pageSize, orderColumn, ascendent);
+
+            foreach (var link in _linkBuilder.Build(Url, nameof(GetSeniorityPage), pageNum, pageSize, existingPages))
+            {
+                Response.Headers.Add(link.Key, link.Value);
+            }
+
+            return Ok(seriotiesPage);
         }
     }
 }

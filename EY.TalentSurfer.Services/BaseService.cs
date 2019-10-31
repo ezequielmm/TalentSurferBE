@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using EY.TalentSurfer.Support.Services.Contracts;
 using EY.TalentSurfer.Services.Contracts;
 using EY.TalentSurfer.Support.Persistence;
+using EY.TalentSurfer.Support.Services.Contracts;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -58,6 +58,17 @@ namespace EY.TalentSurfer.Services
         public async Task<bool> ExistsAsync(int id)
         {
             return await _repository.ExistsAsync(id);
+        }
+
+        public async Task<IEnumerable<TReadDto>> GetPage(int pageNumber, int quantity, string orderColumn, bool ascendent)
+        {
+            var entitiesPage = await _repository.ToListAsync(pageNumber, quantity, orderColumn, ascendent);
+            return _mapper.Map<IEnumerable<TReadDto>>(entitiesPage);
+        }
+
+        public async Task<int> CountAsync()
+        {
+            return await _repository.CountAsync();
         }
     }
 }

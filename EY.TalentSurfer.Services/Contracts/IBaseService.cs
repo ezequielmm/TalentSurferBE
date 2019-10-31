@@ -17,5 +17,7 @@ namespace EY.TalentSurfer.Services.Contracts
         Task<TRead> CreateAsync(TCreate createDto);
         Task DeleteAsync(int id);
         Task<bool> ExistsAsync(int id);
+        Task<IEnumerable<TRead>> GetPage(int pageNumber, int quantity, string orderColumn, bool ascendent);
+        Task<int> CountAsync();
     }
 }

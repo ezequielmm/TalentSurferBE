@@ -15,5 +15,7 @@ namespace EY.TalentSurfer.Support.Persistence
         Task UpdateAsync(T entity);
         Task UpdateAsync(IEnumerable<T> entities);
         Task<bool> ExistsAsync(int id);
+        Task<IEnumerable<T>> ToListAsync(int pageNum, int quantity, string orderColumn, bool ascendent);
+        Task<int> CountAsync();
     }
 }

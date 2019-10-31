@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using EY.TalentSurfer.Services.Contracts;
 using EY.TalentSurfer.Dto;
+using EY.TalentSurfer.Support;
+using System;
+using EY.TalentSurfer.Support.Api.Contracts;
 
 namespace EY.TalentSurfer.Api.Controllers
 {
@@ -11,10 +14,12 @@ namespace EY.TalentSurfer.Api.Controllers
     public class ProjectController : ControllerBase
     {
         private readonly IProjectService _service;
+        private readonly IPageLinkBuilder _linkBuilder;
 
-        public ProjectController(IProjectService service)
+        public ProjectController(IProjectService service, IPageLinkBuilder linkBuilder)
         {
             _service = service;
+            _linkBuilder = linkBuilder;
         }
 
         // GET: api/Project
@@ -73,6 +78,23 @@ namespace EY.TalentSurfer.Api.Controllers
         private async Task<bool> ProjectExists(int id)
         {
             return await _service.ExistsAsync(id);
+        }
+
+        // GET: api/Project/Page
+        [HttpGet("Page", Name = "GetProjectPage")]
+        public async Task<ActionResult<IEnumerable<ProjectReadDto>>> GetProjectPage(int pageNum = 1, int pageSize = 10, string orderColumn = "Id", bool ascendent = true)
+        {
+            var existingPages = (int)Math.Ceiling((double)await _service.CountAsync() / pageSize);
+            if (pageNum > existingPages) return BadRequest(string.Format(Messages.PagesOutOfRange, existingPages, pageSize));
+
+            var ProjectPage = await _service.GetPage(pageNum, pageSize, orderColumn, ascendent);
+
+            foreach (var link in _linkBuilder.Build(Url, nameof(GetProjectPage), pageNum, pageSize, existingPages))
+            {
+                Response.Headers.Add(link.Key, link.Value);
+            }
+
+            return Ok(ProjectPage);
         }
     }
 }

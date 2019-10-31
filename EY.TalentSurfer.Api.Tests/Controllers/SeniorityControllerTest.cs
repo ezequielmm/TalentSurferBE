@@ -1,6 +1,7 @@
 ﻿using EY.TalentSurfer.Api.Controllers;
 using EY.TalentSurfer.Dto;
 using EY.TalentSurfer.Services.Contracts;
+using EY.TalentSurfer.Support.Api.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System.Threading.Tasks;
@@ -11,12 +12,14 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
     public class SeniorityControllerTest
     {
         private readonly ISeniorityService _service;
+        private readonly IPageLinkBuilder _linkbuilder;
 
         public SeniorityControllerTest()
         {
             _service = Mock.Of<ISeniorityService>();
+            _linkbuilder = Mock.Of<IPageLinkBuilder>();
 
-            Target = new SeniorityController(_service);
+            Target = new SeniorityController(_service, _linkbuilder);
         }
 
         private SeniorityController Target { get; }

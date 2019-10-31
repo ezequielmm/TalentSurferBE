@@ -1,6 +1,9 @@
 ﻿using EY.TalentSurfer.Dto.SOW;
 using EY.TalentSurfer.Services.Contracts;
+using EY.TalentSurfer.Support;
+using EY.TalentSurfer.Support.Api.Contracts;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,10 +14,12 @@ namespace EY.TalentSurfer.Api.Controllers
     public class SowController : ControllerBase
     {
         private readonly ISowService _service;
+        private readonly IPageLinkBuilder _linkBuilder;
 
-        public SowController(ISowService service)
+        public SowController(ISowService service, IPageLinkBuilder linkBuilder)
         {
             _service = service;
+            _linkBuilder = linkBuilder;
         }
 
         // GET: api/SOW
@@ -73,6 +78,23 @@ namespace EY.TalentSurfer.Api.Controllers
         private async Task<bool> SOWExists(int id)
         {
             return await _service.ExistsAsync(id);
+        }
+
+        // GET: api/Sow/Page
+        [HttpGet("Page", Name = "GetSowPage")]
+        public async Task<ActionResult<IEnumerable<SowReadDto>>> GetSowPage(int pageNum = 1, int pageSize = 10, string orderColumn = "Id", bool ascendent = true)
+        {
+            var existingPages = (int)Math.Ceiling((double)await _service.CountAsync() / pageSize);
+            if (pageNum > existingPages) return BadRequest(string.Format(Messages.PagesOutOfRange, existingPages, pageSize));
+
+            var SowsPage = await _service.GetPage(pageNum, pageSize, orderColumn, ascendent);
+
+            foreach (var link in _linkBuilder.Build(Url, nameof(GetSowPage), pageNum, pageSize, existingPages))
+            {
+                Response.Headers.Add(link.Key, link.Value);
+            }
+
+            return Ok(SowsPage);
         }
     }
 }

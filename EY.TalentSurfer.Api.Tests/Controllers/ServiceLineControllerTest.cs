@@ -1,6 +1,7 @@
 ﻿using EY.TalentSurfer.Api.Controllers;
 using EY.TalentSurfer.Dto;
 using EY.TalentSurfer.Services.Contracts;
+using EY.TalentSurfer.Support.Api.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System.Threading.Tasks;
@@ -11,12 +12,14 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
     public class ServiceLineControllerTest
     {
         private readonly IServiceLineService _service;
+        private readonly IPageLinkBuilder _linkbuilder;
 
         public ServiceLineControllerTest()
         {
             _service = Mock.Of<IServiceLineService>();
+            _linkbuilder = Mock.Of<IPageLinkBuilder>();
 
-            Target = new ServiceLineController(_service);
+            Target = new ServiceLineController(_service, _linkbuilder);
         }
 
         private ServiceLineController Target { get; }

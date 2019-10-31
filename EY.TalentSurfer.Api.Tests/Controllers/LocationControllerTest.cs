@@ -1,6 +1,7 @@
 ﻿using EY.TalentSurfer.Api.Controllers;
 using EY.TalentSurfer.Dto;
 using EY.TalentSurfer.Services.Contracts;
+using EY.TalentSurfer.Support.Api.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System.Threading.Tasks;
@@ -11,12 +12,14 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
     public class LocationControllerTest
     {
         private readonly ILocationService _service;
+        private readonly IPageLinkBuilder _linkbuilder;
 
         public LocationControllerTest()
         {
             _service = Mock.Of<ILocationService>();
+            _linkbuilder = Mock.Of<IPageLinkBuilder>();
 
-            Target = new LocationController(_service);
+            Target = new LocationController(_service, _linkbuilder);
         }
 
         private LocationController Target { get; }

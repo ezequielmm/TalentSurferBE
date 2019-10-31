@@ -101,5 +101,28 @@ namespace EY.TalentSurfer.Support.Persistence.Sql
         {
             return await Query.SingleOrDefaultAsync(e => e.Id == id) != null;
         }
+
+        public async Task<IEnumerable<T>> ToListAsync(int pageNum, int quantity, string orderColumn, bool ascendent)
+        {
+            orderColumn = char.ToUpper(orderColumn[0]) + orderColumn.Substring(1);
+            if(!ascendent)
+            {
+                return await Query
+                .OrderByDescending(e => typeof(T).GetProperty((orderColumn)).GetValue(e))
+                .Skip((pageNum - 1) * quantity)
+                .Take(quantity)
+                .ToListAsync();
+            }
+            return await Query
+            .OrderBy(e => typeof(T).GetProperty((orderColumn)).GetValue(e))
+            .Skip((pageNum - 1) * quantity)
+            .Take(quantity)
+            .ToListAsync();
+        }
+
+        public async Task<int> CountAsync()
+        {
+            return await Query.CountAsync();
+        }
     }
 }

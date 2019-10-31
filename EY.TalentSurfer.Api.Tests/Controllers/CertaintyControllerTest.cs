@@ -1,6 +1,7 @@
 ﻿using EY.TalentSurfer.Api.Controllers;
 using EY.TalentSurfer.Dto;
 using EY.TalentSurfer.Services.Contracts;
+using EY.TalentSurfer.Support.Api.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System.Threading.Tasks;
@@ -11,12 +12,14 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
     public class CertaintyControllerTest
     {
         private readonly ICertaintyService _service;
+        private readonly IPageLinkBuilder _linkbuilder;
 
         public CertaintyControllerTest()
         {
             _service = Mock.Of<ICertaintyService>();
+            _linkbuilder = Mock.Of<IPageLinkBuilder>();
 
-            Target = new CertaintyController(_service);
+            Target = new CertaintyController(_service, _linkbuilder);
         }
 
         private CertaintyController Target { get; }

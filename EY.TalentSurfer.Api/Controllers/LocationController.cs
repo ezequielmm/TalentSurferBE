@@ -1,8 +1,11 @@
+using EY.TalentSurfer.Dto;
+using EY.TalentSurfer.Services.Contracts;
+using EY.TalentSurfer.Support;
+using EY.TalentSurfer.Support.Api.Contracts;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using EY.TalentSurfer.Services.Contracts;
-using EY.TalentSurfer.Dto;
 
 namespace EY.TalentSurfer.Api.Controllers
 {
@@ -11,10 +14,12 @@ namespace EY.TalentSurfer.Api.Controllers
     public class LocationController : ControllerBase
     {
         private readonly ILocationService _service;
+        private readonly IPageLinkBuilder _linkBuilder;
 
-        public LocationController(ILocationService service)
+        public LocationController(ILocationService service, IPageLinkBuilder linkBuilder)
         {
             _service = service;
+            _linkBuilder = linkBuilder;
         }
 
         // GET: api/Location
@@ -63,7 +68,7 @@ namespace EY.TalentSurfer.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteLocation([FromRoute] int id)
         {
-            if (! await _service.ExistsAsync(id)) return NotFound();
+            if (!await _service.ExistsAsync(id)) return NotFound();
 
             await _service.DeleteAsync(id);
 
@@ -73,6 +78,23 @@ namespace EY.TalentSurfer.Api.Controllers
         private async Task<bool> LocationExists(int id)
         {
             return await _service.ExistsAsync(id);
+        }
+
+        // GET: api/Location/Page
+        [HttpGet("Page", Name = "GetLocationPage")]
+        public async Task<ActionResult<IEnumerable<LocationReadDto>>> GetLocationPage(int pageNum = 1, int pageSize = 10, string orderColumn = "Id", bool ascendent = true)
+        {
+            var existingPages = (int)Math.Ceiling((double)await _service.CountAsync() / pageSize);
+            if (pageNum > existingPages) return BadRequest(string.Format(Messages.PagesOutOfRange, existingPages, pageSize));
+
+            var locationPage = await _service.GetPage(pageNum, pageSize, orderColumn, ascendent);
+
+            foreach (var link in _linkBuilder.Build(Url, nameof(GetLocationPage), pageNum, pageSize, existingPages))
+            {
+                Response.Headers.Add(link.Key, link.Value);
+            }
+
+            return Ok(locationPage);
         }
     }
 }

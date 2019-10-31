@@ -1,8 +1,11 @@
 using EY.TalentSurfer.Dto;
 using EY.TalentSurfer.Services.Contracts;
+using EY.TalentSurfer.Support.Api.Contracts;
+using EY.TalentSurfer.Support;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System;
 
 namespace EY.TalentSurfer.Api.Controllers
 {
@@ -11,10 +14,12 @@ namespace EY.TalentSurfer.Api.Controllers
     public class CertaintyController : ControllerBase
     {
         private readonly ICertaintyService _service;
+        private readonly IPageLinkBuilder _linkBuilder;
 
-        public CertaintyController(ICertaintyService service)
+        public CertaintyController(ICertaintyService service, IPageLinkBuilder linkBuilder)
         {
             _service = service;
+            _linkBuilder = linkBuilder;
         }
 
         // GET: api/Certainty
@@ -73,6 +78,23 @@ namespace EY.TalentSurfer.Api.Controllers
         private async Task<bool> CertaintyExists(int id)
         {
             return await _service.ExistsAsync(id);
+        }
+
+        // GET: api/Certainty/Page
+        [HttpGet("Page", Name = "GetCertaintyPage")]
+        public async Task<ActionResult<IEnumerable<CertaintyReadDto>>> GetCertaintyPage(int pageNum = 1, int pageSize = 10, string orderColumn = "Id", bool ascendent = true)
+        {
+            var existingPages = (int)Math.Ceiling((double)await _service.CountAsync() / pageSize);
+            if (pageNum > existingPages) return BadRequest(string.Format(Messages.PagesOutOfRange, existingPages, pageSize));
+
+            var certaintiesPage = await _service.GetPage(pageNum, pageSize, orderColumn, ascendent);
+
+            foreach (var link in _linkBuilder.Build(Url, nameof(GetCertaintyPage), pageNum, pageSize, existingPages))
+            {
+                Response.Headers.Add(link.Key, link.Value);
+            }
+
+            return Ok(certaintiesPage);
         }
     }
 }

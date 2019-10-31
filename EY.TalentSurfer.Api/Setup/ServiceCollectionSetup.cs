@@ -5,6 +5,7 @@ using EY.TalentSurfer.Services.Configs;
 using EY.TalentSurfer.Services.Contracts;
 using EY.TalentSurfer.Support;
 using EY.TalentSurfer.Support.Api;
+using EY.TalentSurfer.Support.Api.Contracts;
 using EY.TalentSurfer.Support.Persistence;
 using EY.TalentSurfer.Support.Persistence.Sql;
 using Microsoft.AspNetCore.Authentication;
@@ -50,7 +51,8 @@ namespace EY.TalentSurfer.Api.Setup
         {
             return services
                 .AddSingleton<IUserProvider, HttpContextUserProvider>()
-                .AddSingleton<IDateTimeProvider, DateTimeProvider>();
+                .AddSingleton<IDateTimeProvider, DateTimeProvider>()
+                .AddSingleton<IPageLinkBuilder, PageLinkBuilder>();
         }
 
         public static IServiceCollection AddMapper(this IServiceCollection services)

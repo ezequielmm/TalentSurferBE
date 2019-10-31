@@ -1,8 +1,10 @@
 using EY.TalentSurfer.Dto;
 using EY.TalentSurfer.Services.Contracts;
+using EY.TalentSurfer.Support;
+using EY.TalentSurfer.Support.Api.Contracts;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Threading.Tasks;
 
 namespace EY.TalentSurfer.Api.Controllers
@@ -12,10 +14,12 @@ namespace EY.TalentSurfer.Api.Controllers
     public class ServiceLineController : ControllerBase
     {
         private readonly IServiceLineService _service;
+        private readonly IPageLinkBuilder _linkBuilder;
 
-        public ServiceLineController(IServiceLineService service)
+        public ServiceLineController(IServiceLineService service, IPageLinkBuilder linkBuilder)
         {
             _service = service;
+            _linkBuilder = linkBuilder;
         }
 
         // GET: api/ServiceLine
@@ -74,6 +78,23 @@ namespace EY.TalentSurfer.Api.Controllers
         private async Task<bool> ServiceLineExists(int id)
         {
             return await _service.ExistsAsync(id);
+        }
+
+        // GET: api/ServiceLine/Page
+        [HttpGet("Page", Name = "GetServiceLinePage")]
+        public async Task<ActionResult<IEnumerable<CertaintyReadDto>>> GetServiceLinePage(int pageNum = 1, int pageSize = 10, string orderColumn = "Id", bool ascendent = true)
+        {
+            var existingPages = (int)Math.Ceiling((double)await _service.CountAsync() / pageSize);
+            if (pageNum > existingPages) return BadRequest(string.Format(Messages.PagesOutOfRange, existingPages, pageSize));
+
+            var serviceLinesPage = await _service.GetPage(pageNum, pageSize, orderColumn, ascendent);
+
+            foreach (var link in _linkBuilder.Build(Url, nameof(GetServiceLinePage), pageNum, pageSize, existingPages))
+            {
+                Response.Headers.Add(link.Key, link.Value);
+            }
+
+            return Ok(serviceLinesPage);
         }
     }
 }

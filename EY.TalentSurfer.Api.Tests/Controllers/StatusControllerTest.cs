@@ -1,6 +1,7 @@
 ﻿using EY.TalentSurfer.Api.Controllers;
 using EY.TalentSurfer.Dto;
 using EY.TalentSurfer.Services.Contracts;
+using EY.TalentSurfer.Support.Api.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System.Threading.Tasks;
@@ -11,12 +12,14 @@ namespace EY.TalentSurfer.Api.Tests.Controllers
     public class StatusControllerTest
     {
         private readonly IStatusService _service;
+        private readonly IPageLinkBuilder _linkbuilder;
 
         public StatusControllerTest()
         {
             _service = Mock.Of<IStatusService>();
+            _linkbuilder = Mock.Of<IPageLinkBuilder>();
 
-            Target = new StatusController(_service);
+            Target = new StatusController(_service, _linkbuilder);
         }
 
         private StatusController Target { get; }
