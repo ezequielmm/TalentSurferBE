@@ -4,6 +4,7 @@ using AutoMapper;
 using AutoMapper.EquivalencyExpression;
 using EY.TalentSurfer.Domain;
 using EY.TalentSurfer.Dto;
+using EY.TalentSurfer.Dto.SOW;
 
 namespace EY.TalentSurfer.Services.Configs
 {
@@ -39,6 +40,9 @@ namespace EY.TalentSurfer.Services.Configs
             CreateMap<PositionEY, PositionEYReadDto>();
             CreateMap<PositionEYCreateDto, PositionEY>();
             CreateMap<PositionEYUpdateDto, PositionEY>();
+            CreateMap<Sow, SowReadDto>();
+            CreateMap<SowCreateDto, Sow>();
+            CreateMap<SowUpdateDto, Sow>();
 
             OpportunityMapping();
         }
