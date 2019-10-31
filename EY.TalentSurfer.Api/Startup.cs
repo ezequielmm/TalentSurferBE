@@ -1,13 +1,20 @@
 ﻿using EY.TalentSurfer.Api.Setup;
+using EY.TalentSurfer.Domain;
+using EY.TalentSurfer.Support;
 using EY.TalentSurfer.Support.Persistence.Sql;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
+using System;
+using System.Collections.Generic;
 
 namespace EY.TalentSurfer.Api
 {
@@ -26,6 +33,22 @@ namespace EY.TalentSurfer.Api
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<TalentSurferContext>(options => options.UseSqlServer(Configuration.GetConnectionString("TalentSurferContext")));
 
+            services.AddIdentity<User, IdentityRole<int>>()
+                .AddEntityFrameworkStores<TalentSurferContext>()
+                .AddDefaultTokenProviders();
+
+            services.Configure<AuthenticationSettings>(Configuration.GetSection("Authentication"));
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequiredLength = 8;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+            });
+
+            // Authentication
+            services.ConfigureAuthentication(Configuration);
+
             // Repositories
             services.AddRepositories();
 
@@ -41,6 +64,19 @@ namespace EY.TalentSurfer.Api
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "TalentSurfer API", Version = "v1" });
+
+                c.AddSecurityDefinition("Bearer", new ApiKeyScheme
+                {
+                    Description = "JWT Authorization header {token}",
+                    Name = "Authorization",
+                    In = "header",
+                    Type = "apiKey"
+                });
+
+                c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>()
+                {
+                  { "Bearer", new string[]{ } }
+                });
             });
         }
 
@@ -64,6 +100,7 @@ namespace EY.TalentSurfer.Api
             }
 
             loggerFactory.AddFile("Logs/log-{Date}.txt");
+            app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMvc();
         }

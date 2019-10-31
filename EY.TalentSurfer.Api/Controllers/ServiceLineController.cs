@@ -11,7 +11,6 @@ namespace EY.TalentSurfer.Api.Controllers
     [ApiController]
     public class ServiceLineController : ControllerBase
     {
-        // TODO change repo to service
         private readonly IServiceLineService _service;
 
         public ServiceLineController(IServiceLineService service)

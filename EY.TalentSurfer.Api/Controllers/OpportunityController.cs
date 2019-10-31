@@ -10,7 +10,6 @@ namespace EY.TalentSurfer.Api.Controllers
     [ApiController]
     public class OpportunityController : ControllerBase
     {
-        // TODO change repo to service
         private readonly IOpportunityService _service;
 
         public OpportunityController(IOpportunityService service)

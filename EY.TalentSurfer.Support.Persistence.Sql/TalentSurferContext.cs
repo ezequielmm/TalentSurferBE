@@ -1,5 +1,7 @@
 using EY.TalentSurfer.Domain;
 using EY.TalentSurfer.Support.Persistence.Sql.InitialDataLoad;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading;
@@ -7,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace EY.TalentSurfer.Support.Persistence.Sql
 {
-    public class TalentSurferContext : DbContext
+    public class TalentSurferContext : IdentityDbContext<User, IdentityRole<int>, int>
     {
         private readonly IUserProvider _userProvider;
         private readonly IDateTimeProvider _dateTimeProvider;

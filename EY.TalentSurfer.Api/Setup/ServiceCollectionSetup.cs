@@ -7,7 +7,16 @@ using EY.TalentSurfer.Support;
 using EY.TalentSurfer.Support.Api;
 using EY.TalentSurfer.Support.Persistence;
 using EY.TalentSurfer.Support.Persistence.Sql;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.OAuth;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace EY.TalentSurfer.Api.Setup
 {
@@ -26,7 +35,8 @@ namespace EY.TalentSurfer.Api.Setup
                 .AddScoped<IOpportunityService, OpportunityService>()
                 .AddScoped<IProjectService, ProjectService>()
                 .AddScoped<IPositionEYService, PositionEYService>()
-                .AddScoped<ISowService, SowService>();
+                .AddScoped<ISowService, SowService>()
+                .AddScoped<IUserService, UserService>();
         }
 
         public static IServiceCollection AddRepositories(this IServiceCollection services)
@@ -52,6 +62,46 @@ namespace EY.TalentSurfer.Api.Setup
             });
             var mapper = mappingConfig.CreateMapper();
             return services.AddSingleton(mapper);
+        }
+
+        public static AuthenticationBuilder ConfigureAuthentication(this IServiceCollection services, IConfiguration configuration)
+        {
+            var key = Encoding.UTF8.GetBytes(configuration.GetValue<string>("Authentication:Secret"));
+
+            return services.AddAuthentication(options =>
+                {
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.SaveToken = false;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        ClockSkew = TimeSpan.Zero
+                    };
+                })
+                .AddGoogle(options =>
+                {
+                    options.CallbackPath = "/signin-google";
+                    options.ClientId = configuration.GetValue<string>("Authentication:ClientId");
+                    options.ClientSecret = configuration.GetValue<string>("Authentication:ClientSecret");
+                    options.Events = new OAuthEvents
+                    {
+                        OnRemoteFailure = context =>
+                        {
+                            context.HandleResponse();
+                            var error = context.Failure.Message;
+                            return Task.FromResult(0);
+                        }
+                    };
+                });
         }
     }
 }
