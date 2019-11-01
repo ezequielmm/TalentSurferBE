@@ -1,3 +1,4 @@
+using EY.TalentSurfer.Api.Base;
 using EY.TalentSurfer.Dto;
 using EY.TalentSurfer.Services.Contracts;
 using EY.TalentSurfer.Support;
@@ -9,9 +10,7 @@ using System.Threading.Tasks;
 
 namespace EY.TalentSurfer.Api.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class PositionStatusController : ControllerBase
+    public class PositionStatusController : TalentSurferBaseController
     {
         private readonly IPositionStatusService _service;
         private readonly IPageLinkBuilder _linkBuilder;

@@ -7,11 +7,11 @@ namespace EY.TalentSurfer.Domain
 {
     public class Opportunity : AuditableEntity
     {
-        public string Name { get; private set; }
+        public string Name { get; protected set; }
 
-        public DateTime StartDate { get; private set; }
+        public DateTime StartDate { get; protected set; }
 
-        public DateTime EndDate { get; private set; }
+        public DateTime EndDate { get; protected set; }
 
         public IEnumerable<Location> AdditionalLocations => _additionalOpportunityLocations.Select(l => l.Location);
 
@@ -19,41 +19,41 @@ namespace EY.TalentSurfer.Domain
 
         protected IEnumerable<OpportunityLocation> _additionalOpportunityLocations;
 
-        public string Product { get; set; }
+        public string Product { get; protected set; }
 
-        public string ProjectName { get; set; }
+        public string ProjectName { get; protected set; }
 
-        public string Owner { get; set; } // TODO: this is temporarily a string until Globers table and model are created
+        public string Owner { get; protected set; } // TODO: this is temporarily a string until Globers table and model are created
 
-        public Certainty Certainty { get; set; }
-        public int? CertaintyId { get; set; }
+        public Certainty Certainty { get; protected set; }
+        public int? CertaintyId { get; protected set; }
 
-        public Location PrimaryLocation { get; set; }
-        public int? PrimaryLocationId { get; set; }
+        public Location PrimaryLocation { get; protected set; }
+        public int? PrimaryLocationId { get; protected set; }
 
-        public string ProposalFolder { get; set; }
+        public string ProposalFolder { get; protected set; }
 
-        public int Sow { get; set; } // TODO: check if we are saving just sow number or an entity
+        public int Sow { get; protected set; } // TODO: check if we are saving just sow number or an entity
 
-        public ServiceLine ServiceLine { get; set; }
-        public int? ServiceLineId { get; set; }
+        public ServiceLine ServiceLine { get; protected set; }
+        public int? ServiceLineId { get; protected set; }
 
-        public string RequestedByName { get; set; }
+        public string RequestedByName { get; protected set; }
 
-        public string RequestedByEmail { get; set; }
+        public string RequestedByEmail { get; protected set; }
 
-        public DateTime RequestedOn { get; set; }
+        public DateTime RequestedOn { get; protected set; }
 
 
-        public Opportunity Map { get; set; }
-        public int? MapId { get; set; }
+        public Opportunity Map { get; protected set; }
+        public int? MapId { get; protected set; }
 
-        public Status Status { get; set; }
-        public int? StatusId { get; set; }
+        public Status Status { get; protected set; }
+        public int? StatusId { get; protected set; }
 
-        public string OriginalOpptCopy { get; set; }
+        public string OriginalOpptCopy { get; protected set; }
 
-        protected Opportunity() { }
+        private Opportunity() { }
 
         public Opportunity(string name, DateTime startDate, DateTime endDate)
         {

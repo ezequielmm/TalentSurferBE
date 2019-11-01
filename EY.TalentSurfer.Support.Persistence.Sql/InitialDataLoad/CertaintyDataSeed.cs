@@ -16,12 +16,12 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.InitialDataLoad
         public void Configure(EntityTypeBuilder<Certainty> builder)
         {
             builder.HasData(
-                new Certainty { Id = 1, Description = "1. Lost", Value = "0%", CreatedOn = _dateTimeProvider.UtcNow, CreatedBy = "Initial Data Load" },
-                new Certainty { Id = 2, Description = "2. Forecast", Value = "20%", CreatedOn = _dateTimeProvider.UtcNow, CreatedBy = "Initial Data Load" },
-                new Certainty { Id = 3, Description = "3. Under Discussion", Value = "40%", CreatedOn = _dateTimeProvider.UtcNow, CreatedBy = "Initial Data Load" },
-                new Certainty { Id = 4, Description = "4. Proposal Sent", Value = "60%", CreatedOn = _dateTimeProvider.UtcNow, CreatedBy = "Initial Data Load" },
-                new Certainty { Id = 5, Description = "5. SOW Sent", Value = "80%", CreatedOn = _dateTimeProvider.UtcNow, CreatedBy = "Initial Data Load" },
-                new Certainty { Id = 6, Description = "6. SOW Approved", Value = "100%", CreatedOn = _dateTimeProvider.UtcNow, CreatedBy = "Initial Data Load" }
+                new Certainty ( 1, "1. Lost",  "0%",  _dateTimeProvider.UtcNow,  "Initial Data Load" ),
+                new Certainty ( 2, "2. Forecast",  "20%",  _dateTimeProvider.UtcNow,  "Initial Data Load" ),
+                new Certainty ( 3, "3. Under Discussion",  "40%",  _dateTimeProvider.UtcNow,  "Initial Data Load" ),
+                new Certainty ( 4, "4. Proposal Sent",  "60%",  _dateTimeProvider.UtcNow,  "Initial Data Load" ),
+                new Certainty ( 5, "5. SOW Sent",  "80%",  _dateTimeProvider.UtcNow,  "Initial Data Load" ),
+                new Certainty ( 6, "6. SOW Approved",  "100%",  _dateTimeProvider.UtcNow,  "Initial Data Load" )
                 );
         }
     }

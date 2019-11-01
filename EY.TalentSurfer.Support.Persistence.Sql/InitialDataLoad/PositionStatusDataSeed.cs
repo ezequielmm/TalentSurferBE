@@ -16,11 +16,11 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.InitialDataLoad
         public void Configure(EntityTypeBuilder<PositionStatus> builder)
         {
             builder.HasData(
-                new PositionStatus { Id = 1, Description = "** Not Needed **", CreatedOn = _dateTimeProvider.UtcNow, CreatedBy = "Initial Data Load" },
-                new PositionStatus { Id = 2, Description = "1. No Candidates", CreatedOn = _dateTimeProvider.UtcNow, CreatedBy = "Initial Data Load" },
-                new PositionStatus { Id = 3, Description = "2. Internal FIT", CreatedOn = _dateTimeProvider.UtcNow, CreatedBy = "Initial Data Load" },
-                new PositionStatus { Id = 4, Description = "3. Canfirmed (NOW)", CreatedOn = _dateTimeProvider.UtcNow, CreatedBy = "Initial Data Load" },
-                new PositionStatus { Id = 5, Description = "4. Confirmed (Future)", CreatedOn = _dateTimeProvider.UtcNow, CreatedBy = "Initial Data Load" }
+                new PositionStatus(1, "** Not Needed **", _dateTimeProvider.UtcNow, "Initial Data Load"),
+                new PositionStatus(2, "1. No Candidates", _dateTimeProvider.UtcNow, "Initial Data Load"),
+                new PositionStatus(3, "2. Internal FIT", _dateTimeProvider.UtcNow, "Initial Data Load"),
+                new PositionStatus(4, "3. Canfirmed (NOW)", _dateTimeProvider.UtcNow, "Initial Data Load"),
+                new PositionStatus(5, "4. Confirmed (Future)", _dateTimeProvider.UtcNow, "Initial Data Load")
                 );
         }
     }

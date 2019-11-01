@@ -16,17 +16,17 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.InitialDataLoad
         public void Configure(EntityTypeBuilder<Seniority> builder)
         {
             builder.HasData(
-                new Seniority { Id = 1, Description = "** Not Needed **", CreatedOn = _dateTimeProvider.UtcNow, CreatedBy = "Initial Data Load" },
-                new Seniority { Id = 2, Description = "Trainee", CreatedOn = _dateTimeProvider.UtcNow, CreatedBy = "Initial Data Load" },
-                new Seniority { Id = 3, Description = "Junior", CreatedOn = _dateTimeProvider.UtcNow, CreatedBy = "Initial Data Load" },
-                new Seniority { Id = 4, Description = "Junior Adv", CreatedOn = _dateTimeProvider.UtcNow, CreatedBy = "Initial Data Load" },
-                new Seniority { Id = 5, Description = "SSr", CreatedOn = _dateTimeProvider.UtcNow, CreatedBy = "Initial Data Load" },
-                new Seniority { Id = 6, Description = "SSr Adv", CreatedOn = _dateTimeProvider.UtcNow, CreatedBy = "Initial Data Load" },
-                new Seniority { Id = 7, Description = "Senior", CreatedOn = _dateTimeProvider.UtcNow, CreatedBy = "Initial Data Load" },
-                new Seniority { Id = 8, Description = "SD / Level 2", CreatedOn = _dateTimeProvider.UtcNow, CreatedBy = "Initial Data Load" },
-                new Seniority { Id = 9, Description = "Architect / Level 3", CreatedOn = _dateTimeProvider.UtcNow, CreatedBy = "Initial Data Load" },
-                new Seniority { Id = 10, Description = "Level 4", CreatedOn = _dateTimeProvider.UtcNow, CreatedBy = "Initial Data Load" },
-                new Seniority { Id = 12, Description = "Level 5", CreatedOn = _dateTimeProvider.UtcNow, CreatedBy = "Initial Data Load" }
+                new Seniority ( 1, "** Not Needed **",  _dateTimeProvider.UtcNow,  "Initial Data Load" ),
+                new Seniority ( 2, "Trainee",  _dateTimeProvider.UtcNow,  "Initial Data Load" ),
+                new Seniority ( 3, "Junior",  _dateTimeProvider.UtcNow,  "Initial Data Load" ),
+                new Seniority ( 4, "Junior Adv",  _dateTimeProvider.UtcNow,  "Initial Data Load" ),
+                new Seniority ( 5, "SSr",  _dateTimeProvider.UtcNow,  "Initial Data Load" ),
+                new Seniority ( 6, "SSr Adv",  _dateTimeProvider.UtcNow,  "Initial Data Load" ),
+                new Seniority ( 7, "Senior",  _dateTimeProvider.UtcNow,  "Initial Data Load" ),
+                new Seniority ( 8, "SD / Level 2",  _dateTimeProvider.UtcNow,  "Initial Data Load" ),
+                new Seniority ( 9, "Architect / Level 3",  _dateTimeProvider.UtcNow,  "Initial Data Load" ),
+                new Seniority ( 10,  "Level 4",  _dateTimeProvider.UtcNow,  "Initial Data Load" ),
+                new Seniority ( 12,  "Level 5",  _dateTimeProvider.UtcNow,  "Initial Data Load" )
                 );
         }
     }

@@ -2,13 +2,13 @@
 {
     public class OpportunityLocation
     {
-        public Opportunity Opportunity { get; set; }
-        public int OpportunityId { get; set; }
+        public Opportunity Opportunity { get; protected set; }
+        public int OpportunityId { get; protected set; }
 
-        public Location Location { get; set; }
-        public int LocationId { get; set; }
+        public Location Location { get; protected set; }
+        public int LocationId { get; protected set; }
 
-        protected OpportunityLocation()
+        private OpportunityLocation()
         {
         }
 

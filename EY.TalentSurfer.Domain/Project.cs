@@ -4,8 +4,8 @@ namespace EY.TalentSurfer.Domain
 {
     public class Project : AuditableEntity
     {
-        public string Name { get; set; }
-        public bool ArchivingFlag { get; set; }
-        public string Comments { get; set; }
+        public string Name { get; protected set; }
+        public bool ArchivingFlag { get; protected set; }
+        public string Comments { get; protected set; }
     }
 }

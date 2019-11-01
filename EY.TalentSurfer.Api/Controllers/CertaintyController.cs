@@ -1,3 +1,4 @@
+using EY.TalentSurfer.Api.Base;
 using EY.TalentSurfer.Dto;
 using EY.TalentSurfer.Services.Contracts;
 using EY.TalentSurfer.Support.Api.Contracts;
@@ -9,9 +10,7 @@ using System;
 
 namespace EY.TalentSurfer.Api.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class CertaintyController : ControllerBase
+    public class CertaintyController : TalentSurferBaseController
     {
         private readonly ICertaintyService _service;
         private readonly IPageLinkBuilder _linkBuilder;
