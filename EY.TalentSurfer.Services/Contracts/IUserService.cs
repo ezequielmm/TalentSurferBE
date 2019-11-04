@@ -7,5 +7,8 @@ namespace EY.TalentSurfer.Services.Contracts
     {
         AuthenticationProperties LoginWithGoogle();
         Task<string> HandleLoginAsync();
+        Task ApproveUserAsync(int userId);
+        Task RejectUserAsync(int userId);
+        Task<bool> UserExists(int userId);
     }
 }

@@ -1,7 +1,8 @@
-﻿using EY.TalentSurfer.Services.Contracts;
+﻿using EY.TalentSurfer.Domain;
+using EY.TalentSurfer.Services.Contracts;
 using EY.TalentSurfer.Support;
+using EY.TalentSurfer.Support.Api.Attributes;
 using EY.TalentSurfer.Support.Exceptions;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace EY.TalentSurfer.Api.Controllers
 {
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -32,7 +33,7 @@ namespace EY.TalentSurfer.Api.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("HandleLogin", Name = "HandleLogin")]
+        [HttpGet("HandleLogin")]
         public async Task<ActionResult> HandleLogin()
         {
             try
@@ -40,10 +41,28 @@ namespace EY.TalentSurfer.Api.Controllers
                 var token = await _userService.HandleLoginAsync();
                 return Redirect(string.Concat(_authenticationSettings.ReturnUrl, $"?token={token}"));
             }
-            catch (CreateUserException ex)
+            catch (UserException ex)
             {
                 return Unauthorized(ex.Message);
             }
+        }
+
+        [AuthorizedUser(UserStatus.Approved)]
+        [HttpPost("{userId}/Approve")]
+        public async Task<ActionResult> ApproveUser(int userId)
+        {
+            if (!await _userService.UserExists(userId)) return NotFound();
+            await _userService.ApproveUserAsync(userId);
+            return NoContent();
+        }
+
+        [AuthorizedUser(UserStatus.Approved)]
+        [HttpPost("{userId}/Reject")]
+        public async Task<ActionResult> RejectUser(int userId)
+        {
+            if (!await _userService.UserExists(userId)) return NotFound();
+            await _userService.RejectUserAsync(userId);
+            return NoContent();
         }
     }
 }

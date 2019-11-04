@@ -39,13 +39,6 @@ namespace EY.TalentSurfer.Api
 
             services.Configure<AuthenticationSettings>(Configuration.GetSection("Authentication"));
 
-            services.Configure<IdentityOptions>(options =>
-            {
-                options.Password.RequiredLength = 8;
-                options.Password.RequireLowercase = false;
-                options.Password.RequireUppercase = false;
-            });
-
             // Authentication
             services.ConfigureAuthentication(Configuration);
 

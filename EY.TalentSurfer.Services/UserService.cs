@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using EY.TalentSurfer.Domain;
+using EY.TalentSurfer.Dto;
 using EY.TalentSurfer.Services.Contracts;
 using EY.TalentSurfer.Support;
 using EY.TalentSurfer.Support.Exceptions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -49,15 +51,11 @@ namespace EY.TalentSurfer.Services
         private async Task<User> CreateUser(ExternalLoginInfo info)
         {
             var email = info.Principal.FindFirstValue(ClaimTypes.Email);
-            var newUser = new User
-            {
-                UserName = email,
-                Email = email,
-                EmailConfirmed = true
-            };
+            var fullName = info.Principal.FindFirstValue(ClaimTypes.Name);
+            var newUser = new User(email, fullName);
             var createResult = await _userManager.CreateAsync(newUser);
             if (!createResult.Succeeded)
-                throw new CreateUserException(createResult.Errors.Select(e => e.Description));
+                throw new UserException(createResult.Errors.Select(e => e.Description));
 
             await _userManager.AddLoginAsync(newUser, info);
             var newUserClaims = info.Principal.Claims.Append(new Claim(ClaimTypes.NameIdentifier, newUser.Id.ToString()));
@@ -72,7 +70,9 @@ namespace EY.TalentSurfer.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+                    new Claim(PrivateClaimTypes.Id, user.Id.ToString()),
+                    new Claim(ClaimTypes.NameIdentifier, user.UserName),
+                    new Claim(ClaimTypes.Role, user.Status.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(_authSettings.TokenDuration),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256)
@@ -80,6 +80,25 @@ namespace EY.TalentSurfer.Services
             var tokenHandler = new JwtSecurityTokenHandler();
             var securityToken = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(securityToken);
+        }
+        
+        public async Task ApproveUserAsync(int userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            user.Approve();
+            await _userManager.UpdateAsync(user);
+        }
+
+        public async Task RejectUserAsync(int userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            user.Reject();
+            await _userManager.UpdateAsync(user);
+        }
+
+        public async Task<bool> UserExists(int userId)
+        {
+            return await _userManager.Users.AnyAsync(u => u.Id == userId);
         }
     }
 }
