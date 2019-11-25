@@ -27,6 +27,8 @@ namespace EY.TalentSurfer.Api
 
         public IConfiguration Configuration { get; }
 
+        private readonly string _myAllowOrigins = "myAllowOrigins";
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -38,6 +40,14 @@ namespace EY.TalentSurfer.Api
                 .AddDefaultTokenProviders();
 
             services.Configure<AuthenticationSettings>(Configuration.GetSection("Authentication"));
+
+            // CORS configuration for development environment
+            services.AddCors(options => options.AddPolicy(_myAllowOrigins, builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
 
             // Authentication
             services.ConfigureAuthentication(Configuration);
@@ -80,6 +90,7 @@ namespace EY.TalentSurfer.Api
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
+                app.UseCors(_myAllowOrigins);
                 app.UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "TalentSurfer API V1");
