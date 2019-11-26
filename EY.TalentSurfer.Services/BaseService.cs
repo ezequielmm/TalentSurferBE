@@ -2,7 +2,9 @@
 using EY.TalentSurfer.Services.Contracts;
 using EY.TalentSurfer.Support.Persistence;
 using EY.TalentSurfer.Support.Services.Contracts;
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace EY.TalentSurfer.Services
@@ -69,6 +71,11 @@ namespace EY.TalentSurfer.Services
         public async Task<int> CountAsync()
         {
             return await _repository.CountAsync();
+        }
+
+        public Task<bool> CheckIfValueExists(int? id, Expression<Func<TEntity, bool>> exp)
+        {
+            return _repository.CheckIfValueExists(id, exp);
         }
     }
 }

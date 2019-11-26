@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace EY.TalentSurfer.Support.Persistence
@@ -17,5 +19,6 @@ namespace EY.TalentSurfer.Support.Persistence
         Task<bool> ExistsAsync(int id);
         Task<IEnumerable<T>> ToListAsync(int pageNum, int quantity, string orderColumn, bool ascendent);
         Task<int> CountAsync();
+        Task<bool> CheckIfValueExists(int? id, Expression<Func<T, bool>> exp);
     }
 }

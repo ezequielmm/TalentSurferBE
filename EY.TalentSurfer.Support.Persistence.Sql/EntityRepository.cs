@@ -1,4 +1,5 @@
 ﻿using EY.TalentSurfer.Support.Persistence.Exceptions;
+using LinqKit;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections;
@@ -19,6 +20,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql
         }
 
         protected virtual IQueryable<T> Query => _context.Set<T>();
+        protected virtual DbSet<T> Cosa => _context.Set<T>();
         public Type ElementType => Query.ElementType;
         public Expression Expression => Query.Expression;
         public IQueryProvider Provider => Query.Provider;
@@ -105,7 +107,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql
         public async Task<IEnumerable<T>> ToListAsync(int pageNum, int quantity, string orderColumn, bool ascendent)
         {
             orderColumn = char.ToUpper(orderColumn[0]) + orderColumn.Substring(1);
-            if(!ascendent)
+            if (!ascendent)
             {
                 return await Query
                 .OrderByDescending(e => typeof(T).GetProperty((orderColumn)).GetValue(e))
@@ -123,6 +125,11 @@ namespace EY.TalentSurfer.Support.Persistence.Sql
         public async Task<int> CountAsync()
         {
             return await Query.CountAsync();
+        }
+
+        public async Task<bool> CheckIfValueExists(int? id, Expression<Func<T, bool>> exp)
+        {
+            return await Task.Run(() => Query.AsExpandable().Any(p => (id.HasValue ? p.Id != id : true) && exp.Invoke(p)));
         }
     }
 }

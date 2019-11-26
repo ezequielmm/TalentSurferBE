@@ -49,6 +49,12 @@ namespace EY.TalentSurfer.Api.Controllers
         {
             if (!await _service.ExistsAsync(id)) return NotFound();
 
+            if (await _service.CheckIfValueExists(id, p => p.Description == location.Description))
+            {
+                ModelState.AddModelError("Duplication", "Location description already exists");
+                return Conflict();
+            }
+
             var updated = await _service.UpdateAsync(id, location);
 
             return Ok(updated);
@@ -58,6 +64,12 @@ namespace EY.TalentSurfer.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<LocationReadDto>> PostLocation([FromBody] LocationCreateDto location)
         {
+            if (await _service.CheckIfValueExists(null, p => p.Description == location.Description))
+            {
+                ModelState.AddModelError("Duplication", "Location description already exists");
+                return Conflict();
+            }
+
             var created = await _service.CreateAsync(location);
 
             return CreatedAtAction("GetLocation", new { id = created.Id }, created);

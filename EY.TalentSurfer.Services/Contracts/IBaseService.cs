@@ -2,6 +2,8 @@
 using EY.TalentSurfer.Support.Persistence;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq.Expressions;
+using System;
 
 namespace EY.TalentSurfer.Services.Contracts
 {
@@ -19,5 +21,6 @@ namespace EY.TalentSurfer.Services.Contracts
         Task<bool> ExistsAsync(int id);
         Task<IEnumerable<TRead>> GetPage(int pageNumber, int quantity, string orderColumn, bool ascendent);
         Task<int> CountAsync();
+        Task<bool> CheckIfValueExists(int? id, Expression<Func<TEntity, bool>> exp);
     }
 }

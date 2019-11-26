@@ -49,6 +49,18 @@ namespace EY.TalentSurfer.Api.Controllers
         {
             if (!await CertaintyExists(id)) return NotFound();
 
+            if (await _service.CheckIfValueExists(id, p => p.Description == certainty.Description))
+            {
+                ModelState.AddModelError("Duplication", "Certainty description already exists");
+                return Conflict();
+            }
+
+            if (await _service.CheckIfValueExists(id, p => p.Value == certainty.Value))
+            {
+                ModelState.AddModelError("Duplication", "Certainty value already exists");
+                return Conflict();
+            }
+
             var updated = await _service.UpdateAsync(id, certainty);
 
             return Ok(updated);
@@ -58,7 +70,20 @@ namespace EY.TalentSurfer.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<CertaintyReadDto>> PostCertainty(CertaintyCreateDto certainty)
         {
+            if (await _service.CheckIfValueExists(null, p => p.Description == certainty.Description))
+            {
+                ModelState.AddModelError("Duplication", "Certainty description already exists");
+                return Conflict(ModelState);
+            }
+
+            if (await _service.CheckIfValueExists(null, p => p.Value == certainty.Value))
+            {
+                ModelState.AddModelError("Duplication", "Certainty value already exists");
+                return Conflict(ModelState);
+            }
+
             var created = await _service.CreateAsync(certainty);
+
 
             return CreatedAtAction("GetCertainty", new { id = created.Id }, certainty);
         }
