@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
 using EY.TalentSurfer.Domain;
 using EY.TalentSurfer.Dto;
+using EY.TalentSurfer.Dto.RefreshToken;
+using EY.TalentSurfer.Dto.User;
 using EY.TalentSurfer.Services.Contracts;
 using EY.TalentSurfer.Support;
 using EY.TalentSurfer.Support.Exceptions;
+using EY.TalentSurfer.Support.Persistence;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -18,19 +21,25 @@ using System.Threading.Tasks;
 
 namespace EY.TalentSurfer.Services
 {
-    public class UserService : IUserService
+    public class UserService : BaseService<RefreshToken, RefreshTokenCreateDto, RefreshTokenReadDto, RefreshTokenUpdateDto>, IUserService
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        private readonly IMapper _mapper;
         private readonly AuthenticationSettings _authSettings;
+        private readonly IPasswordHasher<User> _passwordHasher;
 
-        public UserService(UserManager<User> userManager, SignInManager<User> signInManager, IMapper mapper, IOptions<AuthenticationSettings> options)
+        public UserService(
+            UserManager<User> userManager,
+            SignInManager<User> signInManager,
+            IMapper mapper,
+            IOptions<AuthenticationSettings> options,
+            IPasswordHasher<User> passwordHasher,
+            IRepository<RefreshToken> repository) : base(repository, mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _mapper = mapper;
             _authSettings = options.Value;
+            _passwordHasher = passwordHasher;
         }
 
         public AuthenticationProperties LoginWithGoogle()
@@ -38,14 +47,93 @@ namespace EY.TalentSurfer.Services
             return _signInManager.ConfigureExternalAuthenticationProperties("Google", "api/User/HandleLogin");
         }
 
-        public async Task<string> HandleLoginAsync()
+        public async Task<UserSignedInDto> HandleLoginAsync()
         {
             var info = await _signInManager.GetExternalLoginInfoAsync();
             var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false);
 
-            var user = result.Succeeded ? await _userManager.FindByLoginAsync("Google", info.ProviderKey) : await CreateUser(info);
+            User user = result.Succeeded ? await _userManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey) : await CreateUser(info);
 
-            return GenerateJwtToken(user);
+            DateTime expirationDate = GetNextExpirationDate();
+
+            string accessToken = GenerateJwtToken(
+                user.Id.ToString(),
+                user.UserName,
+                user.Status.ToString(),
+                expirationDate);
+
+            return new UserSignedInDto
+            {
+                AccessToken = accessToken,
+                AccessTokenExpiration = expirationDate,
+                RefreshToken = await GenerateRefreshToken(user)
+            };
+        }
+
+        public async Task<UserSignedInDto> HandleLoginAsync(string refreshToken, string accessToken)
+        {
+            var refreshTokenResult = await GetByTokenAsync(refreshToken);
+
+            ValidateRefreshToken(refreshTokenResult);
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            JwtSecurityToken jwtToken = (JwtSecurityToken)tokenHandler.ReadToken(accessToken);
+
+            DateTime expirationDate = GetNextExpirationDate();
+
+            string newAccessToken = GenerateJwtToken(
+                jwtToken.Claims.First(p => p.Type == "Id").Value,
+                jwtToken.Claims.Single(p => p.Type == "nameid").Value,
+                jwtToken.Claims.Single(p => p.Type == "role").Value,
+                expirationDate);
+
+            return new UserSignedInDto
+            {
+                AccessToken = newAccessToken,
+                AccessTokenExpiration = expirationDate,
+                RefreshToken = refreshToken
+            };
+        }
+
+        private static void ValidateRefreshToken(RefreshTokenReadDto refreshTokenResult)
+        {
+            if (refreshTokenResult == null)
+            {
+                throw new RefreshTokenNotFoundException("Refresh token was not found.");
+            }
+            if (refreshTokenResult.Revoked)
+            {
+                throw new RefreshTokenDeniedException("Refresh token was revoked");
+            }
+        }
+
+        public async Task<string> GenerateRefreshToken(User user)
+        {
+            string token = _passwordHasher.HashPassword(user, Guid.NewGuid().ToString())
+                   .Replace("+", string.Empty)
+                   .Replace("=", string.Empty)
+                   .Replace("/", string.Empty);
+            var refreshToken = new RefreshTokenCreateDto
+            {
+                Token = token,
+                Username = user.UserName,
+                Revoked = false
+            };
+
+            return (await GetByUserName(user.UserName) ?? await CreateAsync(refreshToken)).Token;
+        }
+
+        public async Task RevokeRefreshToken(string refreshToken)
+        {
+            var refreshTokenResult = await GetByTokenAsync(refreshToken);
+
+            ValidateRefreshToken(refreshTokenResult);
+
+            refreshTokenResult.Revoked = true;
+
+            var updateRefreshToken = _mapper.Map<RefreshTokenUpdateDto>(refreshTokenResult);
+
+            await UpdateAsync(refreshTokenResult.Id, updateRefreshToken);
         }
 
         private async Task<User> CreateUser(ExternalLoginInfo info)
@@ -63,25 +151,30 @@ namespace EY.TalentSurfer.Services
             return newUser;
         }
 
-        private string GenerateJwtToken(User user)
+        private string GenerateJwtToken(string userId, string userName, string role, DateTime expirationDate)
         {
             var key = Encoding.UTF8.GetBytes(_authSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(PrivateClaimTypes.Id, user.Id.ToString()),
-                    new Claim(ClaimTypes.NameIdentifier, user.UserName),
-                    new Claim(ClaimTypes.Role, user.Status.ToString())
+                    new Claim(PrivateClaimTypes.Id, userId),
+                    new Claim(ClaimTypes.NameIdentifier, userName),
+                    new Claim(ClaimTypes.Role, role)
                 }),
-                Expires = DateTime.UtcNow.AddMinutes(_authSettings.TokenDuration),
+                Expires = expirationDate,
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256)
             };
             var tokenHandler = new JwtSecurityTokenHandler();
             var securityToken = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(securityToken);
         }
-        
+
+        private DateTime GetNextExpirationDate()
+        {
+            return DateTime.UtcNow.AddMinutes(_authSettings.TokenDuration);
+        }
+
         public async Task ApproveUserAsync(int userId)
         {
             var user = await _userManager.FindByIdAsync(userId.ToString());
@@ -99,6 +192,23 @@ namespace EY.TalentSurfer.Services
         public async Task<bool> UserExists(int userId)
         {
             return await _userManager.Users.AnyAsync(u => u.Id == userId);
+        }
+
+        private async Task<RefreshTokenReadDto> GetByTokenAsync(string token)
+        {
+            return _mapper.Map<RefreshTokenReadDto>(await _repository.SingleOrDefaultAsync(p => p.Token == token));
+        }
+
+        private async Task<RefreshTokenReadDto> GetByUserName(string username)
+        {
+            if (await _repository.AnyAsync(p => p.Username == username))
+            {
+                RefreshToken refreshToken = await _repository.SingleOrDefaultAsync(p => p.Username == username);
+                refreshToken.Revoked = false;
+                await _repository.UpdateAsync(refreshToken);
+                return _mapper.Map<RefreshTokenReadDto>(refreshToken);
+            }
+            return null;
         }
     }
 }

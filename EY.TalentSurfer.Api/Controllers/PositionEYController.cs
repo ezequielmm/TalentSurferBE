@@ -6,12 +6,11 @@ using EY.TalentSurfer.Dto;
 using EY.TalentSurfer.Support;
 using System;
 using EY.TalentSurfer.Support.Api.Contracts;
+using EY.TalentSurfer.Api.Base;
 
 namespace EY.TalentSurfer.Api.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class PositionEYController : ControllerBase
+    public class PositionEYController : TalentSurferBaseController
     {
         private readonly IPositionEYService _service;
         private readonly IPageLinkBuilder _linkBuilder;

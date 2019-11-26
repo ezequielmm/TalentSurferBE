@@ -6,12 +6,11 @@ using EY.TalentSurfer.Dto;
 using EY.TalentSurfer.Support;
 using System;
 using EY.TalentSurfer.Support.Api.Contracts;
+using EY.TalentSurfer.Api.Base;
 
 namespace EY.TalentSurfer.Api.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ProjectController : ControllerBase
+    public class ProjectController : TalentSurferBaseController
     {
         private readonly IProjectService _service;
         private readonly IPageLinkBuilder _linkBuilder;

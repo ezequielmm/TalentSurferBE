@@ -33,6 +33,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql
         public DbSet<Project> Project { get; set; }
         public DbSet<PositionEY> PositionEY { get; set; }
         public DbSet<Sow> Sow { get; set; }
+        public DbSet<RefreshToken> RefreshToken { get; set; }
 
         public async override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
         {

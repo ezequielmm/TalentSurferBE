@@ -6,12 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using EY.TalentSurfer.Api.Base;
 
 namespace EY.TalentSurfer.Api.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class SowController : ControllerBase
+    public class SowController : TalentSurferBaseController
     {
         private readonly ISowService _service;
         private readonly IPageLinkBuilder _linkBuilder;
