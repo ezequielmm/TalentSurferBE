@@ -16,10 +16,10 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.InitialDataLoad
         public void Configure(EntityTypeBuilder<Status> builder)
         {
             builder.HasData(
-                new Status(1, "1. Wating for Feedback", _dateTimeProvider.UtcNow, "Initial Data Load"),
-                new Status(2, "2. On Hold", _dateTimeProvider.UtcNow, "Initial Data Load"),
-                new Status(3, "3. Lost", _dateTimeProvider.UtcNow, "Initial Data Load"),
-                new Status(4, "4. Won", _dateTimeProvider.UtcNow, "Initial Data Load")
+                new Status(1, "Wating for Feedback", _dateTimeProvider.UtcNow, "Initial Data Load"),
+                new Status(2, "On Hold", _dateTimeProvider.UtcNow, "Initial Data Load"),
+                new Status(3, "Lost", _dateTimeProvider.UtcNow, "Initial Data Load"),
+                new Status(4, "Won", _dateTimeProvider.UtcNow, "Initial Data Load")
                 );
         }
     }

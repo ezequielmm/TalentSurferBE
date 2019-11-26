@@ -12,7 +12,17 @@ namespace EY.TalentSurfer.Dto
 
         public string Product { get; set; }
 
-        public string ProjectName { get; set; }
+        [Required]
+        public int ProjectId { get; set; }
+
+        [MaxLength(1000)]
+        public string HiringManager { get; set; }
+        
+        [MaxLength(1000)]
+        public string EyId { get; set; }
+        
+        [MaxLength(1000)]
+        public string Contact { get; set; }
 
         public string Owner { get; set; } // TODO: this is temporarily a string until Globers table and model are created
 

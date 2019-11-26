@@ -122,10 +122,10 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                 columns: new[] { "Id", "ArchivingFlag", "Comments", "CreatedBy", "CreatedOn", "Description", "ModifiedBy", "ModifiedOn", "SortOrder" },
                 values: new object[,]
                 {
-                    { 3, false, null, "Initial Data Load", new DateTimeOffset(new DateTime(2019, 10, 21, 12, 54, 34, 939, DateTimeKind.Unspecified).AddTicks(7093), new TimeSpan(0, 0, 0, 0, 0)), "3. Lost", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 3 },
-                    { 1, false, null, "Initial Data Load", new DateTimeOffset(new DateTime(2019, 10, 21, 12, 54, 34, 939, DateTimeKind.Unspecified).AddTicks(7064), new TimeSpan(0, 0, 0, 0, 0)), "1. Wating for Feedback", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 1 },
-                    { 2, false, null, "Initial Data Load", new DateTimeOffset(new DateTime(2019, 10, 21, 12, 54, 34, 939, DateTimeKind.Unspecified).AddTicks(7089), new TimeSpan(0, 0, 0, 0, 0)), "2. On Hold", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 2 },
-                    { 4, false, null, "Initial Data Load", new DateTimeOffset(new DateTime(2019, 10, 21, 12, 54, 34, 939, DateTimeKind.Unspecified).AddTicks(7096), new TimeSpan(0, 0, 0, 0, 0)), "4. Won", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 4 }
+                    { 3, false, null, "Initial Data Load", new DateTimeOffset(new DateTime(2019, 10, 21, 12, 54, 34, 939, DateTimeKind.Unspecified).AddTicks(7093), new TimeSpan(0, 0, 0, 0, 0)), "Lost", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 3 },
+                    { 1, false, null, "Initial Data Load", new DateTimeOffset(new DateTime(2019, 10, 21, 12, 54, 34, 939, DateTimeKind.Unspecified).AddTicks(7064), new TimeSpan(0, 0, 0, 0, 0)), "Wating for Feedback", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 1 },
+                    { 2, false, null, "Initial Data Load", new DateTimeOffset(new DateTime(2019, 10, 21, 12, 54, 34, 939, DateTimeKind.Unspecified).AddTicks(7089), new TimeSpan(0, 0, 0, 0, 0)), "On Hold", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 2 },
+                    { 4, false, null, "Initial Data Load", new DateTimeOffset(new DateTime(2019, 10, 21, 12, 54, 34, 939, DateTimeKind.Unspecified).AddTicks(7096), new TimeSpan(0, 0, 0, 0, 0)), "Won", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 4 }
                 });
         }
 

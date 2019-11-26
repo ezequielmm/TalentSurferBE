@@ -52,7 +52,7 @@ namespace EY.TalentSurfer.Services.Configs
             CreateMap<Opportunity, OpportunityReadDto>()
                 .ForMember(
                     e => e.AdditionalLocationsIds,
-                    m => m.MapFrom(o => o.AdditionalLocations.Select(l => l.Id))
+                    m => m.MapFrom(o => o.AdditionalOpportunityLocations.Select(l => l.LocationId))
                 );
             CreateMap<Opportunity, OpportunityDisplayDto>()
                 .ForMember(

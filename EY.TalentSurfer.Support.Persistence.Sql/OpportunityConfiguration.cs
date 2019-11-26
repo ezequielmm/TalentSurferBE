@@ -47,6 +47,10 @@ namespace EY.TalentSurfer.Support.Persistence.Sql
             builder.HasOne(e => e.Status)
                 .WithMany()
                 .HasForeignKey(e => e.StatusId);
+
+            builder.HasOne(e => e.Project)
+                .WithMany()
+                .HasForeignKey(e => e.ProjectId);
         }
     }
 }
