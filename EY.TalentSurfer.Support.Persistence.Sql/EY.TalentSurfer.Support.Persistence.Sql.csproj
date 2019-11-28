@@ -17,6 +17,8 @@
     <Compile Remove="Migrations\20191022173859_Opportunity.cs" />
     <Compile Remove="Migrations\20191121144604_OpportuntyNewFields.cs" />
     <Compile Remove="Migrations\20191121144604_OpportuntyNewFields.Designer.cs" />
+    <Compile Remove="Migrations\20191127133552_soft-delete.cs" />
+    <Compile Remove="Migrations\20191127133552_soft-delete.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
