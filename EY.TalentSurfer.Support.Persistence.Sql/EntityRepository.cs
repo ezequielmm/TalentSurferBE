@@ -29,17 +29,17 @@ namespace EY.TalentSurfer.Support.Persistence.Sql
 
         public async Task<IEnumerable<T>> ToListAsync()
         {
-            return await Query.ToListAsync();
+            return await Query.Where(e => !e.Deleted).ToListAsync();
         }
 
         public async Task<T> FindAsync(int id)
         {
-            return await Query.SingleOrDefaultAsync(e => e.Id == id);
+            return await Query.SingleOrDefaultAsync(e => !e.Deleted && e.Id == id);
         }
 
         public async Task<IEnumerable<T>> FindRangeAsync(IEnumerable<int> ids)
         {
-            return await Query.Where(e => ids.Contains(e.Id)).ToListAsync();
+            return await Query.Where(e => !e.Deleted).Where(e => ids.Contains(e.Id)).ToListAsync();
         }
 
         public async Task InsertAsync(T entity)
@@ -82,7 +82,8 @@ namespace EY.TalentSurfer.Support.Persistence.Sql
         {
             await ExecuteAsync(async () =>
             {
-                _context.Remove(entity);
+                entity.Deleted = true;
+                _context.Update(entity);
                 await _context.SaveChangesAsync();
             });
         }
@@ -101,7 +102,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql
 
         public async Task<bool> ExistsAsync(int id)
         {
-            return await Query.SingleOrDefaultAsync(e => e.Id == id) != null;
+            return await Query.SingleOrDefaultAsync(e => !e.Deleted && e.Id == id) != null;
         }
 
         public async Task<IEnumerable<T>> ToListAsync(int pageNum, int quantity, string orderColumn, bool ascendent)
@@ -109,13 +110,13 @@ namespace EY.TalentSurfer.Support.Persistence.Sql
             orderColumn = char.ToUpper(orderColumn[0]) + orderColumn.Substring(1);
             if (!ascendent)
             {
-                return await Query
+                return await Query.Where(e => !e.Deleted)
                 .OrderByDescending(e => typeof(T).GetProperty((orderColumn)).GetValue(e))
                 .Skip((pageNum - 1) * quantity)
                 .Take(quantity)
                 .ToListAsync();
             }
-            return await Query
+            return await Query.Where(e => !e.Deleted)
             .OrderBy(e => typeof(T).GetProperty((orderColumn)).GetValue(e))
             .Skip((pageNum - 1) * quantity)
             .Take(quantity)
@@ -124,7 +125,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql
 
         public async Task<int> CountAsync()
         {
-            return await Query.CountAsync();
+            return await Query.Where(e => !e.Deleted).CountAsync();
         }
 
         public async Task<bool> CheckIfValueExists(int? id, Expression<Func<T, bool>> exp)
