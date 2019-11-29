@@ -48,13 +48,13 @@ namespace EY.TalentSurfer.Api.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("tokens/{refreshToken}/refreshfor/{accessToken}")]
+        [HttpGet("tokens/{refreshToken}/refreshfor/{accessToken}")]
         public async Task<IActionResult> RefreshAccessToken(string refreshToken, string accessToken)
         {
             try
             {
                 UserSignedInDto token = await _userService.HandleLoginAsync(refreshToken, accessToken);
-                return Redirect(string.Concat(_authenticationSettings.ReturnUrl, $"?token={token.AccessToken}&refreshToken={token.RefreshToken}"));
+                return Ok(token);
             }
             catch (RefreshTokenNotFoundException exception)
             {
