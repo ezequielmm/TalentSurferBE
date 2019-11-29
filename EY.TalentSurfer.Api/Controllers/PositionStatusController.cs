@@ -47,7 +47,13 @@ namespace EY.TalentSurfer.Api.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> PutPositionStatus(int id, PositionStatusUpdateDto positionStatus)
         {
-            if (!await PositionStatusExists(id)) return NotFound();
+            if (!await PositionStatusExists(id)) return  NotFound();
+
+            if (await _service.CheckIfValueExists(id, p => p.Description == positionStatus.Description))
+            {
+                ModelState.AddModelError("Duplication", "Position status Description already exists");
+                return Conflict();
+            }
 
             var updated = await _service.UpdateAsync(id, positionStatus);
 
@@ -58,6 +64,14 @@ namespace EY.TalentSurfer.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<PositionStatusReadDto>> PostPositionStatus(PositionStatusCreateDto positionStatus)
         {
+
+            if (await _service.CheckIfValueExists(null, p => p.Description == positionStatus.Description))
+            {
+
+                ModelState.AddModelError("Duplication", "Position status description already exists");
+                return Conflict();
+            }
+
             var created = await _service.CreateAsync(positionStatus);
 
             return CreatedAtAction("GetPositionStatus", new { id = created.Id }, positionStatus);
@@ -75,8 +89,8 @@ namespace EY.TalentSurfer.Api.Controllers
         }
 
         private async Task<bool> PositionStatusExists(int id)
-        {
-            return await _service.ExistsAsync(id);
+        {           
+                return await _service.ExistsAsync(id);
         }
 
         // GET: api/PositionStatus/Page
