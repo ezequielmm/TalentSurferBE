@@ -16,22 +16,14 @@ namespace EY.TalentSurfer.Domain
             UserName = email.Split('@')[0];
             Email = email;
             FullName = fullName;
-            Status = UserStatus.Submitted;
             EmailConfirmed = true;
+            ArchivingFlag = false;
         }
+
+        public bool ArchivingFlag { get; set; }
 
         public string FullName { get; protected set; }
 
-        public UserStatus Status { get; protected set; }
-
-        public void Approve()
-        {
-            this.Status = UserStatus.Approved;
-        }
-
-        public void Reject()
-        {
-            this.Status = UserStatus.Rejected;
-        }
+     
     }
 }

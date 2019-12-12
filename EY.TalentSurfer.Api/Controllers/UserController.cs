@@ -13,6 +13,7 @@ using EY.TalentSurfer.Api.Base;
 
 namespace EY.TalentSurfer.Api.Controllers
 {
+    
     public class UserController : TalentSurferBaseController
     {
         private readonly IUserService _userService;
@@ -84,22 +85,21 @@ namespace EY.TalentSurfer.Api.Controllers
             return NoContent();
         }
 
-        [AuthorizedUser(UserStatus.Approved)]
-        [HttpPost("{userId}/Approve")]
-        public async Task<ActionResult> ApproveUser(int userId)
+        // PUT: api/Status/5
+        [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> PutUser(int id, UserUpdateDTO user)
         {
-            if (!await _userService.UserExists(userId)) return NotFound();
-            await _userService.ApproveUserAsync(userId);
-            return NoContent();
+            if (!await UserExists(id)) return NotFound();
+
+            var updated = await _userService.UpdateAsync(id, user);
+
+            return Ok(updated);
         }
 
-        [AuthorizedUser(UserStatus.Approved)]
-        [HttpPost("{userId}/Reject")]
-        public async Task<ActionResult> RejectUser(int userId)
+        private async Task<bool> UserExists(int id)
         {
-            if (!await _userService.UserExists(userId)) return NotFound();
-            await _userService.RejectUserAsync(userId);
-            return NoContent();
+            return await _userService.UserExists(id);
         }
     }
 }

@@ -4,14 +4,16 @@ using EY.TalentSurfer.Support.Persistence.Sql;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
 {
     [DbContext(typeof(TalentSurferContext))]
-    partial class TalentSurferContextModelSnapshot : ModelSnapshot
+    [Migration("20191205194246_add-roles-admin-user")]
+    partial class addrolesadminuser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,7 +55,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 1,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 133, DateTimeKind.Unspecified).AddTicks(5275), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 7, DateTimeKind.Unspecified).AddTicks(5055), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "1. Lost",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
@@ -64,7 +66,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 2,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 133, DateTimeKind.Unspecified).AddTicks(7839), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 7, DateTimeKind.Unspecified).AddTicks(8075), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "2. Forecast",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
@@ -75,7 +77,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 3,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 133, DateTimeKind.Unspecified).AddTicks(7864), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 7, DateTimeKind.Unspecified).AddTicks(8105), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "3. Under Discussion",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
@@ -86,7 +88,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 4,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 133, DateTimeKind.Unspecified).AddTicks(7868), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 7, DateTimeKind.Unspecified).AddTicks(8110), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "4. Proposal Sent",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
@@ -97,7 +99,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 5,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 133, DateTimeKind.Unspecified).AddTicks(7871), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 7, DateTimeKind.Unspecified).AddTicks(8114), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "5. SOW Sent",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
@@ -108,7 +110,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 6,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 133, DateTimeKind.Unspecified).AddTicks(7874), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 7, DateTimeKind.Unspecified).AddTicks(8117), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "6. SOW Approved",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
@@ -148,7 +150,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 1,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 126, DateTimeKind.Unspecified).AddTicks(5388), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 0, DateTimeKind.Unspecified).AddTicks(2468), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "Anywhere",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -158,7 +160,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 2,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 127, DateTimeKind.Unspecified).AddTicks(457), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 0, DateTimeKind.Unspecified).AddTicks(8350), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "Anywhere LATAM",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -168,7 +170,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 3,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 127, DateTimeKind.Unspecified).AddTicks(560), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 0, DateTimeKind.Unspecified).AddTicks(8403), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "Anywhere INDIA",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -178,7 +180,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 4,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 127, DateTimeKind.Unspecified).AddTicks(565), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 0, DateTimeKind.Unspecified).AddTicks(8408), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "US",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -188,7 +190,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 5,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 127, DateTimeKind.Unspecified).AddTicks(568), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 0, DateTimeKind.Unspecified).AddTicks(8411), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "Anywhere ARG",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -198,7 +200,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 6,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 127, DateTimeKind.Unspecified).AddTicks(571), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 0, DateTimeKind.Unspecified).AddTicks(8415), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "Anywhere CO",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -208,7 +210,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 7,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 127, DateTimeKind.Unspecified).AddTicks(574), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 0, DateTimeKind.Unspecified).AddTicks(8419), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "Pune",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -218,7 +220,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 8,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 127, DateTimeKind.Unspecified).AddTicks(577), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 0, DateTimeKind.Unspecified).AddTicks(8422), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "Bangalore",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -228,7 +230,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 9,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 127, DateTimeKind.Unspecified).AddTicks(579), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 0, DateTimeKind.Unspecified).AddTicks(8426), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "CABA",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -238,7 +240,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 10,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 127, DateTimeKind.Unspecified).AddTicks(582), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 0, DateTimeKind.Unspecified).AddTicks(8429), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "CBA",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -248,7 +250,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 11,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 127, DateTimeKind.Unspecified).AddTicks(585), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 0, DateTimeKind.Unspecified).AddTicks(8433), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "RO",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -258,7 +260,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 12,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 127, DateTimeKind.Unspecified).AddTicks(588), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 0, DateTimeKind.Unspecified).AddTicks(8436), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "MDZ",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -268,7 +270,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 13,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 127, DateTimeKind.Unspecified).AddTicks(591), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 0, DateTimeKind.Unspecified).AddTicks(8440), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "Bogota",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -278,7 +280,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 14,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 127, DateTimeKind.Unspecified).AddTicks(593), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 0, DateTimeKind.Unspecified).AddTicks(8443), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "Medellin",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -403,7 +405,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 1,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 128, DateTimeKind.Unspecified).AddTicks(7789), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 2, DateTimeKind.Unspecified).AddTicks(8650), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "** Not Needed **",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -413,7 +415,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 2,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 128, DateTimeKind.Unspecified).AddTicks(9958), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 3, DateTimeKind.Unspecified).AddTicks(807), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = ".Net Developer",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -423,7 +425,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 3,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 128, DateTimeKind.Unspecified).AddTicks(9983), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 3, DateTimeKind.Unspecified).AddTicks(832), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "BI Developer",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -433,7 +435,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 4,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 128, DateTimeKind.Unspecified).AddTicks(9987), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 3, DateTimeKind.Unspecified).AddTicks(836), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "BPM Developer",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -443,7 +445,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 5,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 128, DateTimeKind.Unspecified).AddTicks(9990), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 3, DateTimeKind.Unspecified).AddTicks(839), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "Business Analyst",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -453,7 +455,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 6,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 128, DateTimeKind.Unspecified).AddTicks(9994), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 3, DateTimeKind.Unspecified).AddTicks(843), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "Business Intelligence",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -463,7 +465,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 7,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 128, DateTimeKind.Unspecified).AddTicks(9997), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 3, DateTimeKind.Unspecified).AddTicks(846), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "Data Architect",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -473,7 +475,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 8,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 129, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 3, DateTimeKind.Unspecified).AddTicks(850), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "Data Scientist",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -483,7 +485,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 9,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 129, DateTimeKind.Unspecified).AddTicks(2), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 3, DateTimeKind.Unspecified).AddTicks(853), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "DBA",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -493,7 +495,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 10,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 129, DateTimeKind.Unspecified).AddTicks(5), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 3, DateTimeKind.Unspecified).AddTicks(857), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "DevOps/Cloud Engineer",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -503,7 +505,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 11,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 129, DateTimeKind.Unspecified).AddTicks(8), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 3, DateTimeKind.Unspecified).AddTicks(860), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "Java Developer",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -513,7 +515,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 12,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 129, DateTimeKind.Unspecified).AddTicks(11), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 3, DateTimeKind.Unspecified).AddTicks(863), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "Mobile Developer",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -523,7 +525,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 13,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 129, DateTimeKind.Unspecified).AddTicks(14), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 3, DateTimeKind.Unspecified).AddTicks(867), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "Performance Test Engineer",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -533,7 +535,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 14,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 129, DateTimeKind.Unspecified).AddTicks(17), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 3, DateTimeKind.Unspecified).AddTicks(871), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "Project Manager",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -543,7 +545,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 15,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 129, DateTimeKind.Unspecified).AddTicks(19), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 3, DateTimeKind.Unspecified).AddTicks(874), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "Python Developer",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -553,7 +555,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 16,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 129, DateTimeKind.Unspecified).AddTicks(22), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 3, DateTimeKind.Unspecified).AddTicks(878), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "QC Analyst",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -563,7 +565,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 17,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 129, DateTimeKind.Unspecified).AddTicks(25), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 3, DateTimeKind.Unspecified).AddTicks(881), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "Salesforce Developer",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -573,7 +575,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 18,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 129, DateTimeKind.Unspecified).AddTicks(28), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 3, DateTimeKind.Unspecified).AddTicks(885), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "Scrum Master",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -583,7 +585,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 19,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 129, DateTimeKind.Unspecified).AddTicks(31), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 3, DateTimeKind.Unspecified).AddTicks(888), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "Service Now Developer",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -593,7 +595,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 20,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 129, DateTimeKind.Unspecified).AddTicks(34), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 3, DateTimeKind.Unspecified).AddTicks(892), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "Sharepoint Developer",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -603,7 +605,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 21,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 129, DateTimeKind.Unspecified).AddTicks(37), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 3, DateTimeKind.Unspecified).AddTicks(895), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "SOA Developer",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -613,7 +615,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 22,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 129, DateTimeKind.Unspecified).AddTicks(39), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 3, DateTimeKind.Unspecified).AddTicks(899), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "SQL Developer",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -623,7 +625,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 23,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 129, DateTimeKind.Unspecified).AddTicks(42), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 3, DateTimeKind.Unspecified).AddTicks(903), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "Test Automation Engineer",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -633,7 +635,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 24,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 129, DateTimeKind.Unspecified).AddTicks(45), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 3, DateTimeKind.Unspecified).AddTicks(906), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "Tech Manager",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -643,7 +645,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 25,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 129, DateTimeKind.Unspecified).AddTicks(48), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 3, DateTimeKind.Unspecified).AddTicks(909), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "SME",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -653,7 +655,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 26,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 129, DateTimeKind.Unspecified).AddTicks(51), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 3, DateTimeKind.Unspecified).AddTicks(913), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "User Experience Designer",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -663,7 +665,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 27,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 129, DateTimeKind.Unspecified).AddTicks(54), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 3, DateTimeKind.Unspecified).AddTicks(916), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "Visual Designer",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -673,7 +675,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 28,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 129, DateTimeKind.Unspecified).AddTicks(57), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 3, DateTimeKind.Unspecified).AddTicks(920), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "Web UI Developer",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -739,7 +741,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 1,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 132, DateTimeKind.Unspecified).AddTicks(6423), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 6, DateTimeKind.Unspecified).AddTicks(4654), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "** Not Needed **",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -749,7 +751,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 2,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 132, DateTimeKind.Unspecified).AddTicks(8437), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 6, DateTimeKind.Unspecified).AddTicks(7414), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "1. No Candidates",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -759,7 +761,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 3,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 132, DateTimeKind.Unspecified).AddTicks(8460), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 6, DateTimeKind.Unspecified).AddTicks(7442), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "2. Internal FIT",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -769,7 +771,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 4,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 132, DateTimeKind.Unspecified).AddTicks(8463), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 6, DateTimeKind.Unspecified).AddTicks(7447), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "3. Canfirmed (NOW)",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -779,7 +781,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 5,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 132, DateTimeKind.Unspecified).AddTicks(8466), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 6, DateTimeKind.Unspecified).AddTicks(7451), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "4. Confirmed (Future)",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -872,7 +874,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 1,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 131, DateTimeKind.Unspecified).AddTicks(7749), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 5, DateTimeKind.Unspecified).AddTicks(6382), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "** Not Needed **",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -882,7 +884,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 2,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 131, DateTimeKind.Unspecified).AddTicks(9994), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 5, DateTimeKind.Unspecified).AddTicks(8500), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "Trainee",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -892,7 +894,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 3,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 132, DateTimeKind.Unspecified).AddTicks(19), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 5, DateTimeKind.Unspecified).AddTicks(8524), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "Junior",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -902,7 +904,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 4,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 132, DateTimeKind.Unspecified).AddTicks(22), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 5, DateTimeKind.Unspecified).AddTicks(8528), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "Junior Adv",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -912,7 +914,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 5,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 132, DateTimeKind.Unspecified).AddTicks(25), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 5, DateTimeKind.Unspecified).AddTicks(8531), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "SSr",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -922,7 +924,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 6,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 132, DateTimeKind.Unspecified).AddTicks(28), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 5, DateTimeKind.Unspecified).AddTicks(8535), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "SSr Adv",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -932,7 +934,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 7,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 132, DateTimeKind.Unspecified).AddTicks(31), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 5, DateTimeKind.Unspecified).AddTicks(8539), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "Senior",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -942,7 +944,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 8,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 132, DateTimeKind.Unspecified).AddTicks(34), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 5, DateTimeKind.Unspecified).AddTicks(8542), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "SD / Level 2",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -952,7 +954,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 9,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 132, DateTimeKind.Unspecified).AddTicks(37), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 5, DateTimeKind.Unspecified).AddTicks(8546), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "Architect / Level 3",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -962,7 +964,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 10,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 132, DateTimeKind.Unspecified).AddTicks(40), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 5, DateTimeKind.Unspecified).AddTicks(8549), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "Level 4",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -972,7 +974,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 12,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 132, DateTimeKind.Unspecified).AddTicks(43), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 5, DateTimeKind.Unspecified).AddTicks(8553), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "Level 5",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -1011,7 +1013,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 1,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 130, DateTimeKind.Unspecified).AddTicks(5852), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 4, DateTimeKind.Unspecified).AddTicks(4341), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "Platform",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -1021,7 +1023,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 2,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 130, DateTimeKind.Unspecified).AddTicks(8558), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 4, DateTimeKind.Unspecified).AddTicks(6711), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "ATTG",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -1031,7 +1033,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 3,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 130, DateTimeKind.Unspecified).AddTicks(8596), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 4, DateTimeKind.Unspecified).AddTicks(6750), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "GTP",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -1041,7 +1043,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 4,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 130, DateTimeKind.Unspecified).AddTicks(8603), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 4, DateTimeKind.Unspecified).AddTicks(6758), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "Business",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -1107,7 +1109,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 1,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 129, DateTimeKind.Unspecified).AddTicks(7623), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 3, DateTimeKind.Unspecified).AddTicks(6853), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "Wating for Feedback",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -1117,7 +1119,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 2,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 129, DateTimeKind.Unspecified).AddTicks(9528), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 3, DateTimeKind.Unspecified).AddTicks(8900), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "On Hold",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -1127,7 +1129,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 3,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 129, DateTimeKind.Unspecified).AddTicks(9552), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 3, DateTimeKind.Unspecified).AddTicks(8924), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "Lost",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -1137,7 +1139,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                             Id = 4,
                             ArchivingFlag = false,
                             CreatedBy = "Initial Data Load",
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 10, 14, 26, 58, 129, DateTimeKind.Unspecified).AddTicks(9555), new TimeSpan(0, 0, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 12, 5, 19, 42, 46, 3, DateTimeKind.Unspecified).AddTicks(8928), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
                             Description = "Won",
                             ModifiedOn = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -1151,8 +1153,6 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("AccessFailedCount");
-
-                    b.Property<bool>("ArchivingFlag");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
@@ -1181,6 +1181,8 @@ namespace EY.TalentSurfer.Support.Persistence.Sql.Migrations
                     b.Property<bool>("PhoneNumberConfirmed");
 
                     b.Property<string>("SecurityStamp");
+
+                    b.Property<int>("Status");
 
                     b.Property<bool>("TwoFactorEnabled");
 

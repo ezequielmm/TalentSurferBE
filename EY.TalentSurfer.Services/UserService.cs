@@ -9,6 +9,7 @@ using EY.TalentSurfer.Support.Exceptions;
 using EY.TalentSurfer.Support.Persistence;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -53,14 +54,24 @@ namespace EY.TalentSurfer.Services
             var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false);
 
             User user = result.Succeeded ? await _userManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey) : await CreateUser(info);
+            var fullUser = _userManager.FindByIdAsync(user.Id.ToString());
 
+            var claimsResult = _userManager.GetClaimsAsync(user);
+            var claims = claimsResult.Result;
+
+            var claimeRole = claims.FirstOrDefault(x => x.Type == ClaimTypes.Role);
+            string role = "";
+            if (claimeRole != null)
+            {
+                role = claimeRole.Value;
+            }
             DateTime expirationDate = GetNextExpirationDate();
 
             string accessToken = GenerateJwtToken(
                 user.Id.ToString(),
                 user.UserName,
-                user.Status.ToString(),
-                expirationDate);
+                user.ArchivingFlag?"":role,
+                 expirationDate);
 
             return new UserSignedInDto
             {
@@ -140,16 +151,76 @@ namespace EY.TalentSurfer.Services
         {
             var email = info.Principal.FindFirstValue(ClaimTypes.Email);
             var fullName = info.Principal.FindFirstValue(ClaimTypes.Name);
+
             var newUser = new User(email, fullName);
+
             var createResult = await _userManager.CreateAsync(newUser);
             if (!createResult.Succeeded)
                 throw new UserException(createResult.Errors.Select(e => e.Description));
-
+            
             await _userManager.AddLoginAsync(newUser, info);
             var newUserClaims = info.Principal.Claims.Append(new Claim(ClaimTypes.NameIdentifier, newUser.Id.ToString()));
             await _userManager.AddClaimsAsync(newUser, newUserClaims);
+
+            await _userManager.SetLockoutEnabledAsync(newUser, true);
+
+
             return newUser;
         }
+
+        public async Task<User> UpdateAsync(int id, UserUpdateDTO userDTO)
+        {
+            var user = await _userManager.FindByIdAsync(id.ToString());
+
+            user.ArchivingFlag = userDTO.ArchivingFlag;
+
+            var userRoles = await _userManager.GetRolesAsync(user);
+            var userClaims = await _userManager.GetClaimsAsync(user);
+
+            if (!string.IsNullOrEmpty(userDTO.Role))
+            {
+                bool rolePresent = false;
+
+                foreach (var userRole in userRoles)
+                {
+                    if (!userRole.Equals(userDTO.Role))
+                    {
+                        await _userManager.RemoveFromRoleAsync(user, userRole);
+                    }
+                    else
+                    {
+                        rolePresent = true;
+                    }
+                }
+
+                if (!rolePresent)
+                    await _userManager.AddToRoleAsync(user, userDTO.Role);
+
+                bool claimPresent = false;
+
+                foreach (var userClaim in userClaims.Where(x => x.Type == ClaimTypes.Role))
+                {
+                    if (!userClaim.Value.Equals(userDTO.Role))
+                    {
+                        await _userManager.RemoveClaimAsync(user, userClaim);
+                    }
+                    else
+                    {
+                        claimPresent = true;
+                    }
+                }
+
+                if (!claimPresent)
+                    await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, userDTO.Role));
+            }
+
+            var updateResult = await _userManager.UpdateAsync(user);
+            if (!updateResult.Succeeded)
+                throw new UserException(updateResult.Errors.Select(e => e.Description));
+
+            return user;
+        }
+
 
         private string GenerateJwtToken(string userId, string userName, string role, DateTime expirationDate)
         {
@@ -160,7 +231,7 @@ namespace EY.TalentSurfer.Services
                 {
                     new Claim(PrivateClaimTypes.Id, userId),
                     new Claim(ClaimTypes.NameIdentifier, userName),
-                    new Claim(ClaimTypes.Role, role)
+                    new Claim(ClaimTypes.Role, role),
                 }),
                 Expires = expirationDate,
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256)
@@ -173,20 +244,6 @@ namespace EY.TalentSurfer.Services
         private DateTime GetNextExpirationDate()
         {
             return DateTime.UtcNow.AddMinutes(_authSettings.TokenDuration);
-        }
-
-        public async Task ApproveUserAsync(int userId)
-        {
-            var user = await _userManager.FindByIdAsync(userId.ToString());
-            user.Approve();
-            await _userManager.UpdateAsync(user);
-        }
-
-        public async Task RejectUserAsync(int userId)
-        {
-            var user = await _userManager.FindByIdAsync(userId.ToString());
-            user.Reject();
-            await _userManager.UpdateAsync(user);
         }
 
         public async Task<bool> UserExists(int userId)

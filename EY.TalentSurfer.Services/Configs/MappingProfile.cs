@@ -5,7 +5,9 @@ using AutoMapper.EquivalencyExpression;
 using EY.TalentSurfer.Domain;
 using EY.TalentSurfer.Dto;
 using EY.TalentSurfer.Dto.RefreshToken;
+using EY.TalentSurfer.Dto.Roles;
 using EY.TalentSurfer.Dto.SOW;
+using Microsoft.AspNetCore.Identity;
 
 namespace EY.TalentSurfer.Services.Configs
 {
@@ -50,6 +52,7 @@ namespace EY.TalentSurfer.Services.Configs
             CreateMap<RefreshTokenReadDto, RefreshTokenUpdateDto>();
 
             OpportunityMapping();
+            RoleMapping();
         }
 
         private void OpportunityMapping()
@@ -69,6 +72,15 @@ namespace EY.TalentSurfer.Services.Configs
                 .AfterMap((s, d) => d.UpdateLocations(s.AdditionalLocationsIds));
             CreateMap<OpportunityUpdateDto, Opportunity>()
                 .AfterMap((s, d) => d.UpdateLocations(s.AdditionalLocationsIds));
+        }
+
+        private void RoleMapping()
+        {
+            CreateMap<IdentityRole<int>, RoleReadDTO>()
+                .ForMember(
+                    e => e.Id,
+                    m => m.MapFrom(o => o.Name)
+                );
         }
     }
 }

@@ -8,9 +8,9 @@ namespace EY.TalentSurfer.Support.Api.Attributes
 {
     public class AuthorizedUserAttribute : AuthorizeAttribute, IAuthorizationFilter
     {
-        private readonly UserStatus[] _authorizedRoles;
+        private readonly string[] _authorizedRoles;
 
-        public AuthorizedUserAttribute(params UserStatus[] roles)
+        public AuthorizedUserAttribute(params string[] roles)
         {
             _authorizedRoles = roles;
         }

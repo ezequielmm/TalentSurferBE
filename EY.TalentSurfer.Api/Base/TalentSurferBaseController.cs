@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using EY.TalentSurfer.Support.Api.Attributes;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace EY.TalentSurfer.Api.Base
     [Route("api/[controller]")]
     [ApiController]
     [Produces(MediaTypeNames.Application.Json)]
-    [Authorize]
+    [Authorize(Roles = "User,Admin")]
     public class TalentSurferBaseController : ControllerBase
     {
 

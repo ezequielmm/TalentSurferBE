@@ -37,14 +37,16 @@ namespace EY.TalentSurfer.Api.Setup
                 .AddScoped<IProjectService, ProjectService>()
                 .AddScoped<IPositionEYService, PositionEYService>()
                 .AddScoped<ISowService, SowService>()
-                .AddScoped<IUserService, UserService>();
+                .AddScoped<IUserService, UserService>()
+                .AddScoped<IRoleService, RoleService>();
         }
 
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             return services
                 .AddScoped(typeof(IRepository<>), typeof(EntityRepository<>))
-                .AddScoped<IOpportunityRepository, OpportunityRepository>();
+                .AddScoped<IOpportunityRepository, OpportunityRepository>()
+                .AddScoped<IRoleRepository, RoleRepository>();
         }
 
         public static IServiceCollection AddProviders(this IServiceCollection services)
