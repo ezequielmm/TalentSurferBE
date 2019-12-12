@@ -1,5 +1,6 @@
 ﻿using EY.TalentSurfer.Support.Persistence;
 using System;
+using System.Collections.Generic;
 
 namespace EY.TalentSurfer.Domain
 {
@@ -19,5 +20,6 @@ namespace EY.TalentSurfer.Domain
         public string Description { get; protected set; }
         public bool ArchivingFlag { get; protected set; }
         public string Comments { get; protected set; }
+      //  public IEnumerable<PositionSlotLocation> PositionSlotLocations { get; set; }
     }
 }

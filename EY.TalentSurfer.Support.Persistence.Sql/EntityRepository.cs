@@ -31,7 +31,7 @@ namespace EY.TalentSurfer.Support.Persistence.Sql
         {
             return await Query.Where(e => !e.Deleted).ToListAsync();
         }
-
+   
         public async Task<T> FindAsync(int id)
         {
             return await Query.SingleOrDefaultAsync(e => !e.Deleted && e.Id == id);
@@ -44,6 +44,8 @@ namespace EY.TalentSurfer.Support.Persistence.Sql
 
         public async Task InsertAsync(T entity)
         {
+
+          bool ifexist=await ExistsAsync(entity);
             await ExecuteAsync(async () =>
             {
                 await _context.AddAsync(entity);
@@ -98,6 +100,11 @@ namespace EY.TalentSurfer.Support.Persistence.Sql
             {
                 throw new PersistenceException(ex.Message, ex);
             }
+        }
+        public async Task<bool> ExistsAsync(T entity)
+        {
+            
+            return await Query.SingleOrDefaultAsync(e => e.Equals(entity)) != null;
         }
 
         public async Task<bool> ExistsAsync(int id)

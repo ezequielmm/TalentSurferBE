@@ -19,6 +19,20 @@
     <Compile Remove="Migrations\20191121144604_OpportuntyNewFields.Designer.cs" />
     <Compile Remove="Migrations\20191127133552_soft-delete.cs" />
     <Compile Remove="Migrations\20191127133552_soft-delete.Designer.cs" />
+    <Compile Remove="Migrations\20191125063101__PositionSlotModel.cs" />
+    <Compile Remove="Migrations\20191203193755_updatedAdditionalLocation.cs" />
+    <Compile Remove="Migrations\20191203193755_updatedAdditionalLocation.Designer.cs" />
+    <Compile Remove="Migrations\20191209174921_PositionSlotLocationModelIssuefixed.cs" />
+    <Compile Remove="Migrations\20191209175722_PositionSlotLocationModel.cs" />
+    <Compile Remove="Migrations\20191209185615_PositionSlotLocationModel.cs" />
+    <Compile Remove="Migrations\20191209190503_PositionSlotLocationModel.cs" />
+    <Compile Remove="Migrations\20191209195800_PositionSlotLocationModel.cs" />
+    <Compile Remove="Migrations\20191210055951_PositionSlotLocationModel.cs" />
+    <Compile Remove="Migrations\20191210075819_PositionSlotLocationModel.cs" />
+    <Compile Remove="Migrations\20191210080149_PositionSlotLocationModel.cs" />
+    <Compile Remove="Migrations\20191210081409_PositionSlotLocationModel.cs" />
+    <Compile Remove="Migrations\20191210081801_PositionSlotLocationModel.cs" />
+    <Compile Remove="Migrations\20191210082442_PositionSlotLocationModel.cs" />
   </ItemGroup>
 
   <ItemGroup>

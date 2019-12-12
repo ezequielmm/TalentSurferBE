@@ -30,10 +30,13 @@ namespace EY.TalentSurfer.Support.Persistence.Sql
         public DbSet<Status> Status { get; set; }
         public DbSet<Opportunity> Opportunity { get; set; }
         public DbSet<OpportunityLocation> OpportunityLocation { get; set; }
+        public DbSet<PositionSlot> PositionSlot { get; set; }
+        public DbSet<PositionSlotLocation> PositionSlotLocation { get; set; }
         public DbSet<Project> Project { get; set; }
         public DbSet<PositionEY> PositionEY { get; set; }
         public DbSet<Sow> Sow { get; set; }
         public DbSet<RefreshToken> RefreshToken { get; set; }
+      
 
         public async override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -80,6 +83,10 @@ namespace EY.TalentSurfer.Support.Persistence.Sql
             modelBuilder.Entity<OpportunityLocation>()
                 .HasKey(e => new { e.OpportunityId, e.LocationId });
             modelBuilder.ApplyConfiguration(new OpportunityConfiguration(_dateTimeProvider));
+            modelBuilder.Entity<PositionSlotLocation>()
+               .HasKey(e => new { e.PositionSlotId, e.LocationId });
+            modelBuilder.ApplyConfiguration(new PositionSlotConfiguration(_dateTimeProvider));
+
         }
     }
 }

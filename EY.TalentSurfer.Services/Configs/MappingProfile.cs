@@ -6,6 +6,7 @@ using EY.TalentSurfer.Domain;
 using EY.TalentSurfer.Dto;
 using EY.TalentSurfer.Dto.RefreshToken;
 using EY.TalentSurfer.Dto.Roles;
+using EY.TalentSurfer.Dto.PositionSlot;
 using EY.TalentSurfer.Dto.SOW;
 using Microsoft.AspNetCore.Identity;
 
@@ -51,8 +52,10 @@ namespace EY.TalentSurfer.Services.Configs
             CreateMap<RefreshToken, RefreshTokenReadDto>();
             CreateMap<RefreshTokenReadDto, RefreshTokenUpdateDto>();
 
+
             OpportunityMapping();
             RoleMapping();
+            PositionSlotMapping();
         }
 
         private void OpportunityMapping()
@@ -81,6 +84,24 @@ namespace EY.TalentSurfer.Services.Configs
                     e => e.Id,
                     m => m.MapFrom(o => o.Name)
                 );
+        }
+        private void PositionSlotMapping()
+        {
+            CreateMap<PositionSlot, PositionSlotReadDto>()
+                .ForMember(
+                    e => e.AdditionalLocationsIds,
+                    m => m.MapFrom(o => o.AdditionalPositionSlotLocations.Select(l => l.LocationId))
+                );
+            CreateMap<PositionSlot, PositionSlotDisplayDto>()
+                .ForMember(
+                    e => e.LocationId,
+                    m => m.MapFrom(o => o.Location != null ? o.Location.Description : string.Empty)
+                );
+            CreateMap<PositionSlotCreateDto, PositionSlot>()
+                .ConstructUsing(d => new PositionSlot(d.PositionId, d.SeniorityId, d.LocationId))
+                .AfterMap((s, d) => d.UpdateLocations(s.AdditionalLocationsIds));
+            CreateMap<PositionSlotUpdateDto, PositionSlot>()
+                .AfterMap((s, d) => d.UpdateLocations(s.AdditionalLocationsIds));
         }
     }
 }

@@ -8,8 +8,8 @@ using EY.TalentSurfer.Support.Api;
 using EY.TalentSurfer.Support.Api.Contracts;
 using EY.TalentSurfer.Support.Persistence;
 using EY.TalentSurfer.Support.Persistence.Sql;
+using EY.TalentSurfer.Support.Persistence.Sql.PositionsSlot;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.Extensions.Configuration;
@@ -37,8 +37,10 @@ namespace EY.TalentSurfer.Api.Setup
                 .AddScoped<IProjectService, ProjectService>()
                 .AddScoped<IPositionEYService, PositionEYService>()
                 .AddScoped<ISowService, SowService>()
-                .AddScoped<IUserService, UserService>()
-                .AddScoped<IRoleService, RoleService>();
+                .AddScoped<IRoleService, RoleService>()
+                .AddScoped<IPositionSlotService,PositionSlotService>()
+                .AddScoped<IUserService, UserService>();
+            
         }
 
         public static IServiceCollection AddRepositories(this IServiceCollection services)
@@ -46,7 +48,8 @@ namespace EY.TalentSurfer.Api.Setup
             return services
                 .AddScoped(typeof(IRepository<>), typeof(EntityRepository<>))
                 .AddScoped<IOpportunityRepository, OpportunityRepository>()
-                .AddScoped<IRoleRepository, RoleRepository>();
+                .AddScoped<IRoleRepository, RoleRepository>()
+                .AddScoped<IPositionSlotRepository, PositionSlotRepository>();
         }
 
         public static IServiceCollection AddProviders(this IServiceCollection services)

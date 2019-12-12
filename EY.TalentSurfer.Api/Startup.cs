@@ -2,7 +2,6 @@
 using EY.TalentSurfer.Domain;
 using EY.TalentSurfer.Support;
 using EY.TalentSurfer.Support.Persistence.Sql;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -11,9 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
-using System;
 using System.Collections.Generic;
 
 namespace EY.TalentSurfer.Api
