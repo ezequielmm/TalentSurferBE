@@ -13,10 +13,8 @@ namespace EY.TalentSurfer.Services
 {
     public class PositionStatusService : BaseService<PositionStatus, PositionStatusCreateDto, PositionStatusReadDto, PositionStatusUpdateDto>, IPositionStatusService
     {
-        IRepository<PositionStatus> _positionStatusRepo;
         public PositionStatusService(IRepository<PositionStatus> repository, IMapper mapper) : base(repository, mapper)
         {
-            _positionStatusRepo = repository;
         }      
     }
 }
