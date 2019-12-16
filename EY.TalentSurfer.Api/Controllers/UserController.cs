@@ -1,19 +1,18 @@
-﻿using EY.TalentSurfer.Domain;
+﻿using EY.TalentSurfer.Api.Base;
+using EY.TalentSurfer.Dto;
 using EY.TalentSurfer.Dto.User;
 using EY.TalentSurfer.Services.Contracts;
 using EY.TalentSurfer.Support;
-using EY.TalentSurfer.Support.Api.Attributes;
 using EY.TalentSurfer.Support.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using EY.TalentSurfer.Api.Base;
 
 namespace EY.TalentSurfer.Api.Controllers
 {
-    
+
     public class UserController : TalentSurferBaseController
     {
         private readonly IUserService _userService;
@@ -84,6 +83,31 @@ namespace EY.TalentSurfer.Api.Controllers
             }
             return NoContent();
         }
+
+        // GET: api/Seniority
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<IEnumerable<UserReadDto>>> GetUsers()
+        {
+            var users = await _userService.GetAllAsync();
+            return Ok(users);
+        }
+
+        // GET: api/Seniority/5
+        [HttpGet("{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<UserReadDto>> GetUser(int id)
+        {
+            var user = await _userService.GetAsync(id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(user);
+        }
+
 
         // PUT: api/Status/5
         [HttpPut("{id}")]

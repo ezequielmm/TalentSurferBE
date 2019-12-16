@@ -9,11 +9,11 @@ using EY.TalentSurfer.Support.Exceptions;
 using EY.TalentSurfer.Support.Persistence;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -70,7 +70,7 @@ namespace EY.TalentSurfer.Services
             string accessToken = GenerateJwtToken(
                 user.Id.ToString(),
                 user.UserName,
-                user.ArchivingFlag?"":role,
+                user.ArchivingFlag ? "" : role,
                  expirationDate);
 
             return new UserSignedInDto
@@ -157,7 +157,7 @@ namespace EY.TalentSurfer.Services
             var createResult = await _userManager.CreateAsync(newUser);
             if (!createResult.Succeeded)
                 throw new UserException(createResult.Errors.Select(e => e.Description));
-            
+
             await _userManager.AddLoginAsync(newUser, info);
             var newUserClaims = info.Principal.Claims.Append(new Claim(ClaimTypes.NameIdentifier, newUser.Id.ToString()));
             await _userManager.AddClaimsAsync(newUser, newUserClaims);
@@ -167,6 +167,42 @@ namespace EY.TalentSurfer.Services
 
             return newUser;
         }
+
+        public new async Task<IEnumerable<UserReadDto>> GetAllAsync()
+        {
+            var users = await _userManager.Users.ToListAsync();
+            var userDtos = new List<UserReadDto>();
+            foreach (var user in users)
+            {
+                var userDto = _mapper.Map<UserReadDto>(user);
+                var role = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
+                if (!string.IsNullOrEmpty(role))
+                {
+                    userDto.Role = role;
+                }
+                userDtos.Add(userDto);
+            }
+
+            return userDtos;
+        }
+
+        public new async Task<UserReadDto> GetAsync(int id)
+        {
+            User user = await _userManager.FindByIdAsync(id.ToString());
+
+            if (user == null) { return null; }
+
+            var userDto = _mapper.Map<UserReadDto>(user);
+            var role = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
+
+            if (!string.IsNullOrEmpty(role))
+            {
+                userDto.Role = role;
+            }
+
+            return userDto;
+        }
+
 
         public async Task<User> UpdateAsync(int id, UserUpdateDTO userDTO)
         {

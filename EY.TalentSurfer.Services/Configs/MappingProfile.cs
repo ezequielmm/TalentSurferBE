@@ -1,14 +1,12 @@
-﻿using System;
-using System.Linq;
-using AutoMapper;
-using AutoMapper.EquivalencyExpression;
+﻿using AutoMapper;
 using EY.TalentSurfer.Domain;
 using EY.TalentSurfer.Dto;
+using EY.TalentSurfer.Dto.PositionSlot;
 using EY.TalentSurfer.Dto.RefreshToken;
 using EY.TalentSurfer.Dto.Roles;
-using EY.TalentSurfer.Dto.PositionSlot;
 using EY.TalentSurfer.Dto.SOW;
 using Microsoft.AspNetCore.Identity;
+using System.Linq;
 
 namespace EY.TalentSurfer.Services.Configs
 {
@@ -51,6 +49,7 @@ namespace EY.TalentSurfer.Services.Configs
             CreateMap<RefreshTokenUpdateDto, RefreshToken>();
             CreateMap<RefreshToken, RefreshTokenReadDto>();
             CreateMap<RefreshTokenReadDto, RefreshTokenUpdateDto>();
+            CreateMap<User, UserReadDto>();
 
 
             OpportunityMapping();
@@ -85,6 +84,7 @@ namespace EY.TalentSurfer.Services.Configs
                     m => m.MapFrom(o => o.Name)
                 );
         }
+
         private void PositionSlotMapping()
         {
             CreateMap<PositionSlot, PositionSlotReadDto>()
