@@ -53,7 +53,32 @@ namespace EY.TalentSurfer.Services
             var info = await _signInManager.GetExternalLoginInfoAsync();
             var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false);
 
-            User user = result.Succeeded ? await _userManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey) : await CreateUser(info);
+            User user;
+
+            if (result.Succeeded)
+            {
+                user = await _userManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey);
+            }
+            else
+            {
+                var claimEmail = info.Principal.Claims.FirstOrDefault(p => p.Type == ClaimTypes.Email);
+                user = await _userManager.FindByEmailAsync(claimEmail.Value);
+
+                if (user == null)
+                {
+                    user = await CreateUser(info);
+                }
+                else
+                {
+                    await _userManager.AddLoginAsync(user, info);
+                    var newUserClaims = info.Principal.Claims.Append(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
+                    await _userManager.AddClaimsAsync(user, newUserClaims);
+
+                    await _userManager.SetLockoutEnabledAsync(user, true);
+
+                }
+            }
+
             var fullUser = _userManager.FindByIdAsync(user.Id.ToString());
 
             var claimsResult = _userManager.GetClaimsAsync(user);
@@ -164,6 +189,22 @@ namespace EY.TalentSurfer.Services
 
             await _userManager.SetLockoutEnabledAsync(newUser, true);
 
+
+            return newUser;
+        }
+
+        public async Task<User> CreateUserAsync(UserCreateDto userDto)
+        {
+            var newUser = new User(userDto.Email, userDto.UserName);
+
+            var createResult = await _userManager.CreateAsync(newUser);
+            if (!createResult.Succeeded)
+                throw new UserException(createResult.Errors.Select(e => e.Description));
+
+
+
+            await _userManager.AddToRoleAsync(newUser, userDto.Role);
+            await _userManager.AddClaimAsync(newUser, new Claim(ClaimTypes.Role, userDto.Role));
 
             return newUser;
         }

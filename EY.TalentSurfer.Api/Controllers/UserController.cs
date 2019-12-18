@@ -108,8 +108,18 @@ namespace EY.TalentSurfer.Api.Controllers
             return Ok(user);
         }
 
+        // POST: api/User
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> PostUser(UserCreateDto user)
+        {
+            var created = await _userService.CreateUserAsync(user);
 
-        // PUT: api/Status/5
+            return Ok(created);
+            //return //CreatedAtAction("GetUsers", new { id = created.Id }, created);
+        }
+
+        // PUT: api/User/5
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> PutUser(int id, UserUpdateDTO user)
