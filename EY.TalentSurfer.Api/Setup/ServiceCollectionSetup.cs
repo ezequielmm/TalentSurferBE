@@ -16,6 +16,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -38,9 +39,9 @@ namespace EY.TalentSurfer.Api.Setup
                 .AddScoped<IPositionEYService, PositionEYService>()
                 .AddScoped<ISowService, SowService>()
                 .AddScoped<IRoleService, RoleService>()
-                .AddScoped<IPositionSlotService,PositionSlotService>()
+                .AddScoped<IPositionSlotService, PositionSlotService>()
                 .AddScoped<IUserService, UserService>();
-            
+
         }
 
         public static IServiceCollection AddRepositories(this IServiceCollection services)
@@ -107,6 +108,12 @@ namespace EY.TalentSurfer.Api.Setup
                             var error = context.Failure.Message;
                             return Task.FromResult(0);
                         }
+                    };
+                    options.Events.OnCreatingTicket = (context) =>
+                    {
+                        if (context.User.GetValue("picture") != null)
+                            context.Identity.AddClaim(new Claim("image", context.User.GetValue("picture").ToString()));
+                        return Task.CompletedTask;
                     };
                 });
         }

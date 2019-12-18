@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using EY.TalentSurfer.Domain;
-using EY.TalentSurfer.Dto;
 using EY.TalentSurfer.Dto.RefreshToken;
 using EY.TalentSurfer.Dto.User;
 using EY.TalentSurfer.Services.Contracts;
@@ -92,11 +91,14 @@ namespace EY.TalentSurfer.Services
             }
             DateTime expirationDate = GetNextExpirationDate();
 
+            var picture = info.Principal.FindFirstValue("image");
+
             string accessToken = GenerateJwtToken(
                 user.Id.ToString(),
                 user.UserName,
                 user.ArchivingFlag ? "" : role,
-                 expirationDate);
+                picture,
+                expirationDate);
 
             return new UserSignedInDto
             {
@@ -121,6 +123,7 @@ namespace EY.TalentSurfer.Services
                 jwtToken.Claims.First(p => p.Type == "Id").Value,
                 jwtToken.Claims.Single(p => p.Type == "nameid").Value,
                 jwtToken.Claims.Single(p => p.Type == "role").Value,
+                jwtToken.Claims.Single(p => p.Type == "image").Value,
                 expirationDate);
 
             return new UserSignedInDto
@@ -299,7 +302,7 @@ namespace EY.TalentSurfer.Services
         }
 
 
-        private string GenerateJwtToken(string userId, string userName, string role, DateTime expirationDate)
+        private string GenerateJwtToken(string userId, string userName, string role, string picture, DateTime expirationDate)
         {
             var key = Encoding.UTF8.GetBytes(_authSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
@@ -309,6 +312,7 @@ namespace EY.TalentSurfer.Services
                     new Claim(PrivateClaimTypes.Id, userId),
                     new Claim(ClaimTypes.NameIdentifier, userName),
                     new Claim(ClaimTypes.Role, role),
+                    new Claim("image", picture),
                 }),
                 Expires = expirationDate,
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256)
