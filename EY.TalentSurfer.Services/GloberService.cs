@@ -19,11 +19,10 @@ namespace EY.TalentSurfer.Services
         }
         public async Task<GloberReadDto> GetGloberDetails(string key, int offset, int limit)
         {
-            var headers = new Dictionary<string, string>();
             string baseurl = _Configuration.GetValue<string>("GlowIntegration:baseUrl");
             string searchGlobers = _Configuration.GetValue<string>("GlowIntegration:searchGlobers");
             string url = baseurl + searchGlobers + "?key=" + key + "&offset=" + offset + "&limit=" + limit;
-            return await WebApiHelper.Get<GloberReadDto>(url, headers);
+            return await WebApiHelper.Get<GloberReadDto>(url, null);
         }
     }
 }

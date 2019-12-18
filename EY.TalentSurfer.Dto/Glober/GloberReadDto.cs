@@ -4,18 +4,18 @@ namespace EY.TalentSurfer.Dto
 {
     public class GloberReadDto
     {
-        public List<Glober> globers { get; set; }
+        public List<Glober> Globers { get; set; }
     }
     public class Glober
     {
-        public List<string> globerName { get; set; }
-        public string seniority { get; set; }
-        public string position { get; set; }
-        public string email { get; set; }
-        public string location { get; set; }
-        public string country { get; set; }
-        public string city { get; set; }
-        public object phone { get; set; }
-        public string familyGroup { get; set; }
+        public List<string> GloberName { get; set; }
+        public string Seniority { get; set; }
+        public string Position { get; set; }
+        public string Email { get; set; }
+        public string Location { get; set; }
+        public string Country { get; set; }
+        public string City { get; set; }
+        public object Phone { get; set; }
+        public string FamilyGroup { get; set; }
     }
 }
