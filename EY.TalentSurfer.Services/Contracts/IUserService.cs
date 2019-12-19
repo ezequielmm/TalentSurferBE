@@ -14,6 +14,7 @@ namespace EY.TalentSurfer.Services.Contracts
         Task<UserSignedInDto> HandleLoginAsync(string refreshToken, string accessToken);
         Task<UserReadDto> GetAsync(int id);
         Task<IEnumerable<UserReadDto>> GetAllAsync();
+        Task<IEnumerable<UserReadDto>> GetByRoleAsync(string role);
         Task<User> CreateUserAsync(UserCreateDto userDto);
         Task<User> UpdateAsync(int id, UserUpdateDTO userDTO);
         Task<bool> UserExists(int userId);

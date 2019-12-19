@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EY.TalentSurfer.Domain;
+using EY.TalentSurfer.Dto;
 using EY.TalentSurfer.Dto.RefreshToken;
 using EY.TalentSurfer.Dto.User;
 using EY.TalentSurfer.Services.Contracts;
@@ -227,6 +228,25 @@ namespace EY.TalentSurfer.Services
                 userDtos.Add(userDto);
             }
 
+            return userDtos;
+        }
+
+        public async Task<IEnumerable<UserReadDto>> GetByRoleAsync(string role)
+        {
+            var users = await _userManager.Users.ToListAsync();
+            var userDtos = new List<UserReadDto>();
+            foreach (var user in users)
+            {
+                if (role == (await _userManager.GetRolesAsync(user)).FirstOrDefault())
+                {
+                    var userDto = _mapper.Map<UserReadDto>(user);
+                    if (!string.IsNullOrEmpty(role))
+                    {
+                        userDto.Role = role;
+                    }
+                    userDtos.Add(userDto);
+                }
+            }
             return userDtos;
         }
 
