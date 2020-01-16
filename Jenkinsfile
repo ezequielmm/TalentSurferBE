@@ -10,7 +10,7 @@ node {
     stage('Build image') {
         /* This builds the actual image */
 
-        app = docker.build("talentsurfer/backendapi")
+        app = docker.build("talentsurfer/backendapi", "-f ./EY.TalentSurfer.Api/Dockerfile .")
     }
 
     stage('Test image') {
