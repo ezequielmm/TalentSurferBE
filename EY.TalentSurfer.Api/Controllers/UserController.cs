@@ -84,7 +84,7 @@ namespace EY.TalentSurfer.Api.Controllers
             return NoContent();
         }
 
-        // GET: api/Seniority
+        // GET: api/User
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult<IEnumerable<UserReadDto>>> GetUsers()
@@ -93,7 +93,17 @@ namespace EY.TalentSurfer.Api.Controllers
             return Ok(users);
         }
 
-        // GET: api/Seniority/5
+        // GET: api/Admins
+        [HttpGet("Admins")]
+        [AllowAnonymous]
+        [Authorize]
+        public async Task<ActionResult<IEnumerable<UserReadDto>>> GetAdmins()
+        {
+            var users = await _userService.GetByRoleAsync("Admin");
+            return Ok(users);
+        }
+
+        // GET: api/User/5
         [HttpGet("{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult<UserReadDto>> GetUser(int id)
@@ -108,8 +118,18 @@ namespace EY.TalentSurfer.Api.Controllers
             return Ok(user);
         }
 
+        // POST: api/User
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> PostUser(UserCreateDto user)
+        {
+            var created = await _userService.CreateUserAsync(user);
 
-        // PUT: api/Status/5
+            return Ok(created);
+            //return //CreatedAtAction("GetUsers", new { id = created.Id }, created);
+        }
+
+        // PUT: api/User/5
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> PutUser(int id, UserUpdateDTO user)

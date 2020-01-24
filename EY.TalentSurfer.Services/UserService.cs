@@ -53,7 +53,32 @@ namespace EY.TalentSurfer.Services
             var info = await _signInManager.GetExternalLoginInfoAsync();
             var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false);
 
-            User user = result.Succeeded ? await _userManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey) : await CreateUser(info);
+            User user;
+
+            if (result.Succeeded)
+            {
+                user = await _userManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey);
+            }
+            else
+            {
+                var claimEmail = info.Principal.Claims.FirstOrDefault(p => p.Type == ClaimTypes.Email);
+                user = await _userManager.FindByEmailAsync(claimEmail.Value);
+
+                if (user == null)
+                {
+                    user = await CreateUser(info);
+                }
+                else
+                {
+                    await _userManager.AddLoginAsync(user, info);
+                    var newUserClaims = info.Principal.Claims.Append(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
+                    await _userManager.AddClaimsAsync(user, newUserClaims);
+
+                    await _userManager.SetLockoutEnabledAsync(user, true);
+
+                }
+            }
+
             var fullUser = _userManager.FindByIdAsync(user.Id.ToString());
 
             var claimsResult = _userManager.GetClaimsAsync(user);
@@ -67,11 +92,14 @@ namespace EY.TalentSurfer.Services
             }
             DateTime expirationDate = GetNextExpirationDate();
 
+            var picture = info.Principal.FindFirstValue("image");
+
             string accessToken = GenerateJwtToken(
                 user.Id.ToString(),
                 user.UserName,
                 user.ArchivingFlag ? "" : role,
-                 expirationDate);
+                picture,
+                expirationDate);
 
             return new UserSignedInDto
             {
@@ -96,6 +124,7 @@ namespace EY.TalentSurfer.Services
                 jwtToken.Claims.First(p => p.Type == "Id").Value,
                 jwtToken.Claims.Single(p => p.Type == "nameid").Value,
                 jwtToken.Claims.Single(p => p.Type == "role").Value,
+                jwtToken.Claims.Single(p => p.Type == "image").Value,
                 expirationDate);
 
             return new UserSignedInDto
@@ -168,6 +197,22 @@ namespace EY.TalentSurfer.Services
             return newUser;
         }
 
+        public async Task<User> CreateUserAsync(UserCreateDto userDto)
+        {
+            var newUser = new User(userDto.Email, userDto.UserName);
+
+            var createResult = await _userManager.CreateAsync(newUser);
+            if (!createResult.Succeeded)
+                throw new UserException(createResult.Errors.Select(e => e.Description));
+
+
+
+            await _userManager.AddToRoleAsync(newUser, userDto.Role);
+            await _userManager.AddClaimAsync(newUser, new Claim(ClaimTypes.Role, userDto.Role));
+
+            return newUser;
+        }
+
         public new async Task<IEnumerable<UserReadDto>> GetAllAsync()
         {
             var users = await _userManager.Users.ToListAsync();
@@ -183,6 +228,25 @@ namespace EY.TalentSurfer.Services
                 userDtos.Add(userDto);
             }
 
+            return userDtos;
+        }
+
+        public async Task<IEnumerable<UserReadDto>> GetByRoleAsync(string role)
+        {
+            var users = await _userManager.Users.ToListAsync();
+            var userDtos = new List<UserReadDto>();
+            foreach (var user in users)
+            {
+                if (role == (await _userManager.GetRolesAsync(user)).FirstOrDefault())
+                {
+                    var userDto = _mapper.Map<UserReadDto>(user);
+                    if (!string.IsNullOrEmpty(role))
+                    {
+                        userDto.Role = role;
+                    }
+                    userDtos.Add(userDto);
+                }
+            }
             return userDtos;
         }
 
@@ -258,7 +322,7 @@ namespace EY.TalentSurfer.Services
         }
 
 
-        private string GenerateJwtToken(string userId, string userName, string role, DateTime expirationDate)
+        private string GenerateJwtToken(string userId, string userName, string role, string picture, DateTime expirationDate)
         {
             var key = Encoding.UTF8.GetBytes(_authSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
@@ -268,6 +332,7 @@ namespace EY.TalentSurfer.Services
                     new Claim(PrivateClaimTypes.Id, userId),
                     new Claim(ClaimTypes.NameIdentifier, userName),
                     new Claim(ClaimTypes.Role, role),
+                    new Claim("image", picture),
                 }),
                 Expires = expirationDate,
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256)
