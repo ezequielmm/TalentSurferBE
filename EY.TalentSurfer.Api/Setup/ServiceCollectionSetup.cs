@@ -40,7 +40,7 @@ namespace EY.TalentSurfer.Api.Setup
                 .AddScoped<ISowService, SowService>()
                 .AddScoped<IRoleService, RoleService>()
                 .AddScoped<IPositionSlotService, PositionSlotService>()
-                .AddScoped<IUserService, UserService>();
+                .AddScoped<IUserService, UserService>()
                 .AddScoped<IPositionSlotService,PositionSlotService>()
                 .AddScoped<IUserService, UserService>()
                 .AddScoped<IGloberService, GloberService>();
